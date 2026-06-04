@@ -1,0 +1,422 @@
+{
+  "name": "jiveworld-clone-crawler-baseline",
+  "description": "Regression baseline for the Jiveworld clone. Lists every crawlable URL, its expected HTTP status, the key links the crawler should discover on it, and the key UI elements that should be present. All content is hardcoded and deterministic.",
+  "generatedNote": "Frontend is a React SPA served by Vite on http://localhost:5173. Every client-side route returns HTTP 200 with index.html (history-API fallback); the route's real state is rendered client-side and identified by an HTML comment '<!-- PAGE STATE: ... -->' injected at the top of the page. Backend (Express) runs on http://localhost:3001 and is proxied under /api and /media.",
+  "auth": {
+    "loginEndpoint": "POST /api/login",
+    "credentials": { "username": "testuser@jiveworld.com", "password": "password123" },
+    "tokenStorage": "localStorage key 'jw_token' (fake JWT returned by backend)",
+    "guard": "All /es-en/app/learn/* routes redirect to /login when 'jw_token' is absent."
+  },
+  "frontendBaseUrl": "http://localhost:5173",
+  "backendBaseUrl": "http://localhost:3001",
+  "routes": [
+    {
+      "url": "/login",
+      "status": 200,
+      "pageState": "login",
+      "requiresAuth": false,
+      "links": ["/es-en/app/learn/home"],
+      "uiElements": [
+        "Jiveworld logo",
+        "Email input (#username)",
+        "Password input (#password)",
+        "Log in button",
+        "Demo credentials hint"
+      ]
+    },
+    {
+      "url": "/es-en/app/learn/home",
+      "status": 200,
+      "pageState": "home",
+      "requiresAuth": true,
+      "links": [
+        "/es-en/app/learn/home",
+        "/es-en/app/learn/stories",
+        "/es-en/app/learn/progress",
+        "/es-en/app/learn/stories?primary=inProgress",
+        "/es-en/app/learn/stories?primary=completed",
+        "/es-en/app/learn/stories?primary=studyLater",
+        "/es-en/app/learn/stories/perdido-en-san-jose",
+        "/es-en/app/learn/stories/en-busca-de-las-palabras",
+        "/es-en/app/learn/stories/miedo",
+        "/es-en/app/learn/stories/boom-colapso",
+        "/es-en/app/learn/stories/luna-llena",
+        "/es-en/app/learn/stories/sentencia",
+        "/es-en/app/learn/stories/ra-nn",
+        "/es-en/app/learn/collections",
+        "/es-en/app/learn/collections/ciudad"
+      ],
+      "uiElements": [
+        "Greeting 'Hola, Test User'",
+        "Section 'All in progress' (3 story cards)",
+        "Section 'Completed stories' (2 story cards)",
+        "Section 'Study later' (2 story cards)",
+        "'Show all' links",
+        "'My podcast feed' link",
+        "Star points '22'"
+      ]
+    },
+    {
+      "url": "/es-en/app/learn/stories",
+      "status": 200,
+      "pageState": "stories",
+      "requiresAuth": true,
+      "links": [
+        "/es-en/app/learn/home",
+        "/es-en/app/learn/stories",
+        "/es-en/app/learn/progress",
+        "/es-en/app/learn/stories?primary=inProgress",
+        "/es-en/app/learn/stories?primary=completed",
+        "/es-en/app/learn/stories?filter_type=topics&filter_value=Shorts",
+        "/es-en/app/learn/stories?filter_type=sb&filter_value=Completed+stories+with+unplayed+Soundbites",
+        "/es-en/app/learn/stories/perdido-en-san-jose",
+        "/es-en/app/learn/stories/boom-colapso",
+        "/es-en/app/learn/stories/luna-llena",
+        "/es-en/app/learn/stories/sentencia",
+        "/es-en/app/learn/stories/en-busca-de-las-palabras",
+        "/es-en/app/learn/stories/miedo",
+        "/es-en/app/learn/stories/ra-nn",
+        "/es-en/app/learn/stories/ra-perro-raro",
+        "/es-en/app/learn/stories/el-superheroe",
+        "/es-en/app/learn/stories/ra-no-nos-compete"
+      ],
+      "uiElements": [
+        "Heading 'All stories'",
+        "Filter bar: 'All in progress', 'Completed stories', 'Shorts', \"Find Soundbites I've done\", 'remove filters'",
+        "Story count '10 stories'",
+        "'My podcast feed' link",
+        "Story rows with title, duration, tags, progress label"
+      ],
+      "notes": "Filter buttons are real <a href> tags AND update the URL via window.history.pushState on click."
+    },
+    {
+      "url": "/es-en/app/learn/stories?primary=inProgress",
+      "status": 200,
+      "pageState": "stories?primary=inProgress",
+      "requiresAuth": true,
+      "links": [
+        "/es-en/app/learn/stories/perdido-en-san-jose",
+        "/es-en/app/learn/stories/en-busca-de-las-palabras",
+        "/es-en/app/learn/stories/miedo",
+        "/es-en/app/learn/stories/ra-perro-raro"
+      ],
+      "uiElements": [
+        "Heading 'In progress'",
+        "Active filter chip 'All in progress'",
+        "Story count '4 stories'"
+      ]
+    },
+    {
+      "url": "/es-en/app/learn/stories?filter_type=topics&filter_value=Shorts",
+      "status": 200,
+      "pageState": "stories?filter_type=topics&filter_value=Shorts",
+      "requiresAuth": true,
+      "links": [
+        "/es-en/app/learn/stories/miedo",
+        "/es-en/app/learn/stories/el-superheroe"
+      ],
+      "uiElements": [
+        "Heading 'Shorts'",
+        "Active filter chip 'Shorts'",
+        "Story count '2 stories'"
+      ]
+    },
+    {
+      "url": "/es-en/app/learn/stories?filter_type=sb&filter_value=Completed+stories+with+unplayed+Soundbites",
+      "status": 200,
+      "pageState": "stories?filter_type=sb&filter_value=Completed stories with unplayed Soundbites",
+      "requiresAuth": true,
+      "links": [
+        "/es-en/app/learn/stories/boom-colapso",
+        "/es-en/app/learn/stories/luna-llena",
+        "/es-en/app/learn/stories/ra-no-nos-compete"
+      ],
+      "uiElements": [
+        "Heading 'Completed stories with unplayed Soundbites'",
+        "Active filter chip \"Find Soundbites I've done\"",
+        "Story count '3 stories'"
+      ]
+    },
+    {
+      "url": "/es-en/app/learn/collections",
+      "status": 200,
+      "pageState": "collections",
+      "requiresAuth": true,
+      "links": [
+        "/es-en/app/learn/collections/ciudad"
+      ],
+      "uiElements": [
+        "Heading 'Collections'",
+        "Collection card 'Códigos urbanos' (4 stories)"
+      ]
+    },
+    {
+      "url": "/es-en/app/learn/collections/ciudad",
+      "status": 200,
+      "pageState": "collection:ciudad",
+      "requiresAuth": true,
+      "links": [
+        "/es-en/app/learn/collections",
+        "/es-en/app/learn/stories/perdido-en-san-jose",
+        "/es-en/app/learn/stories/ra-nn",
+        "/es-en/app/learn/stories/ra-perro-raro",
+        "/es-en/app/learn/stories/ra-no-nos-compete"
+      ],
+      "uiElements": [
+        "Title 'Códigos urbanos: Unraveling Latin American cities'",
+        "Collection description",
+        "4 story cards"
+      ]
+    },
+    {
+      "url": "/es-en/app/learn/progress",
+      "status": 200,
+      "pageState": "progress",
+      "requiresAuth": true,
+      "links": [
+        "/es-en/app/learn/stories/boom-colapso",
+        "/es-en/app/learn/stories/luna-llena",
+        "/es-en/app/learn/stories/ra-no-nos-compete"
+      ],
+      "uiElements": [
+        "Heading 'My stats'",
+        "Stat tiles: 'Total points' 22, 'Longest streak' 1 day, 'Days with study' 2",
+        "Stat tiles: 'Listened' 0m, 'Stories completed' 3, 'Chapters completed' 35",
+        "Static bar graph (styled divs)",
+        "Current streak calendar",
+        "Section 'Recently completed' (3 story cards)"
+      ]
+    },
+    {
+      "url": "/es-en/app/learn/stories/perdido-en-san-jose",
+      "status": 200,
+      "pageState": "story:perdido-en-san-jose",
+      "requiresAuth": true,
+      "links": [
+        "/es-en/app/learn/stories",
+        "/es-en/app/learn/collections/ciudad",
+        "/es-en/app/learn/stories/boom-colapso",
+        "/es-en/app/learn/stories/luna-llena"
+      ],
+      "uiElements": [
+        "Title 'Perdido en San José'",
+        "Author 'Radio Ambulante'",
+        "Tags, duration '15m'",
+        "Chapter list (4 chapters with status)",
+        "Buttons: Begin story, Relisten, Reset, Manage list, Give feedback on this story",
+        "'Soundbites & Games' with '0/7 Soundbites' and '0/9 Games'",
+        "'My story progress' sidebar panel",
+        "'Collection' section linking to /collections/ciudad",
+        "'Related stories' (2 cards)",
+        "<audio src='/media/perdido-en-san-jose.mp3'>"
+      ]
+    },
+    {
+      "url": "/es-en/app/learn/stories/boom-colapso",
+      "status": 200,
+      "pageState": "story:boom-colapso",
+      "requiresAuth": true,
+      "links": [
+        "/es-en/app/learn/stories",
+        "/es-en/app/learn/stories/luna-llena",
+        "/es-en/app/learn/stories/sentencia"
+      ],
+      "uiElements": [
+        "Title 'Boom/Colapso'",
+        "Chapter list (4 chapters, all Done)",
+        "'0/7 Soundbites', '0/9 Games'",
+        "Related stories (2 cards)",
+        "<audio src='/media/boom-colapso.mp3'>"
+      ]
+    },
+    {
+      "url": "/es-en/app/learn/stories/luna-llena",
+      "status": 200,
+      "pageState": "story:luna-llena",
+      "requiresAuth": true,
+      "links": [
+        "/es-en/app/learn/stories",
+        "/es-en/app/learn/stories/sentencia",
+        "/es-en/app/learn/stories/en-busca-de-las-palabras"
+      ],
+      "uiElements": [
+        "Title 'Luna llena sobre Chiapas'",
+        "Chapter list (4 chapters)",
+        "'0/7 Soundbites', '0/9 Games'",
+        "<audio src='/media/luna-llena.mp3'>"
+      ]
+    },
+    {
+      "url": "/es-en/app/learn/stories/sentencia",
+      "status": 200,
+      "pageState": "story:sentencia",
+      "requiresAuth": true,
+      "links": [
+        "/es-en/app/learn/stories",
+        "/es-en/app/learn/stories/en-busca-de-las-palabras",
+        "/es-en/app/learn/stories/miedo"
+      ],
+      "uiElements": [
+        "Title 'La sentencia'",
+        "Chapter list (4 chapters)",
+        "'0/7 Soundbites', '0/9 Games'",
+        "<audio src='/media/sentencia.mp3'>"
+      ]
+    },
+    {
+      "url": "/es-en/app/learn/stories/en-busca-de-las-palabras",
+      "status": 200,
+      "pageState": "story:en-busca-de-las-palabras",
+      "requiresAuth": true,
+      "links": [
+        "/es-en/app/learn/stories",
+        "/es-en/app/learn/stories/miedo",
+        "/es-en/app/learn/stories/ra-nn"
+      ],
+      "uiElements": [
+        "Title 'En busca de las palabras'",
+        "Chapter list (4 chapters)",
+        "'0/7 Soundbites', '0/9 Games' (Soundbites panel collapsed by default)",
+        "<audio src='/media/en-busca-de-las-palabras.mp3'>"
+      ]
+    },
+    {
+      "url": "/es-en/app/learn/stories/en-busca-de-las-palabras?soundbites=1",
+      "status": 200,
+      "pageState": "story:en-busca-de-las-palabras:soundbites",
+      "requiresAuth": true,
+      "links": [
+        "/es-en/app/learn/stories",
+        "/es-en/app/learn/stories/miedo",
+        "/es-en/app/learn/stories/ra-nn"
+      ],
+      "uiElements": [
+        "Title 'En busca de las palabras'",
+        "Soundbites panel EXPANDED by default",
+        "Soundbite list: 'Érase una vez una erre', 'Por ahí está la casa', 'Teorías del tiempo', 'El esquema de la ciudad', 'Congelando el tiempo', 'Conversando con la sobrina', 'Como en los libros'",
+        "Games list: 'Abrapalabra', 'Word Jive', 'Amigos'"
+      ]
+    },
+    {
+      "url": "/es-en/app/learn/stories/miedo",
+      "status": 200,
+      "pageState": "story:miedo",
+      "requiresAuth": true,
+      "links": [
+        "/es-en/app/learn/stories",
+        "/es-en/app/learn/stories/ra-nn",
+        "/es-en/app/learn/stories/ra-perro-raro"
+      ],
+      "uiElements": [
+        "Title 'Miedo'",
+        "Chapter list (4 chapters)",
+        "'0/7 Soundbites', '0/9 Games'",
+        "<audio src='/media/miedo.mp3'>"
+      ]
+    },
+    {
+      "url": "/es-en/app/learn/stories/ra-nn",
+      "status": 200,
+      "pageState": "story:ra-nn",
+      "requiresAuth": true,
+      "links": [
+        "/es-en/app/learn/stories",
+        "/es-en/app/learn/collections/ciudad",
+        "/es-en/app/learn/stories/ra-perro-raro",
+        "/es-en/app/learn/stories/el-superheroe"
+      ],
+      "uiElements": [
+        "Title 'N.N.'",
+        "Chapter list (4 chapters)",
+        "'0/7 Soundbites', '0/9 Games'",
+        "'Collection' section linking to /collections/ciudad",
+        "<audio src='/media/ra-nn.mp3'>"
+      ]
+    },
+    {
+      "url": "/es-en/app/learn/stories/ra-perro-raro",
+      "status": 200,
+      "pageState": "story:ra-perro-raro",
+      "requiresAuth": true,
+      "links": [
+        "/es-en/app/learn/stories",
+        "/es-en/app/learn/collections/ciudad",
+        "/es-en/app/learn/stories/el-superheroe",
+        "/es-en/app/learn/stories/ra-no-nos-compete"
+      ],
+      "uiElements": [
+        "Title 'Este perro está raro'",
+        "Chapter list (4 chapters)",
+        "'0/7 Soundbites', '0/9 Games'",
+        "'Collection' section linking to /collections/ciudad",
+        "<audio src='/media/ra-perro-raro.mp3'>"
+      ]
+    },
+    {
+      "url": "/es-en/app/learn/stories/el-superheroe",
+      "status": 200,
+      "pageState": "story:el-superheroe",
+      "requiresAuth": true,
+      "links": [
+        "/es-en/app/learn/stories",
+        "/es-en/app/learn/stories/ra-no-nos-compete",
+        "/es-en/app/learn/stories/perdido-en-san-jose"
+      ],
+      "uiElements": [
+        "Title 'El superhéroe'",
+        "Chapter list (4 chapters)",
+        "'0/7 Soundbites', '0/9 Games'",
+        "<audio src='/media/el-superheroe.mp3'>"
+      ]
+    },
+    {
+      "url": "/es-en/app/learn/stories/ra-no-nos-compete",
+      "status": 200,
+      "pageState": "story:ra-no-nos-compete",
+      "requiresAuth": true,
+      "links": [
+        "/es-en/app/learn/stories",
+        "/es-en/app/learn/collections/ciudad",
+        "/es-en/app/learn/stories/perdido-en-san-jose",
+        "/es-en/app/learn/stories/boom-colapso"
+      ],
+      "uiElements": [
+        "Title 'No nos compete'",
+        "Chapter list (4 chapters, all Done)",
+        "'0/7 Soundbites', '0/9 Games'",
+        "'Collection' section linking to /collections/ciudad",
+        "<audio src='/media/ra-no-nos-compete.mp3'>"
+      ]
+    }
+  ],
+  "apiEndpoints": [
+    {
+      "url": "/api/login",
+      "method": "POST",
+      "validRequest": { "username": "testuser@jiveworld.com", "password": "password123" },
+      "successStatus": 200,
+      "successBody": "{ token: <fake JWT>, user: { name: 'Test User', email: '...' } }",
+      "failureStatus": 401
+    },
+    {
+      "url": "/api/me",
+      "method": "GET",
+      "successStatus": 200,
+      "failureStatus": 401,
+      "notes": "Requires 'Authorization: Bearer <token>' header matching the fake JWT."
+    },
+    {
+      "url": "/media/{slug}.mp3",
+      "method": "GET",
+      "status": 200,
+      "contentType": "audio/mpeg",
+      "notes": "Any /media/*.mp3 path returns 200 with a placeholder audio body."
+    },
+    {
+      "url": "/api/health",
+      "method": "GET",
+      "status": 200
+    }
+  ]
+}
