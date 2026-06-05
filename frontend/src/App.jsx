@@ -7,6 +7,7 @@ import StoryDetail from './pages/StoryDetail.jsx';
 import Collections from './pages/Collections.jsx';
 import CollectionDetail from './pages/CollectionDetail.jsx';
 import Progress from './pages/Progress.jsx';
+import Account from './pages/Account.jsx';
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
         <Route path="collections" element={<Collections />} />
         <Route path="collections/:slug" element={<CollectionDetail />} />
         <Route path="progress" element={<Progress />} />
+        <Route path="account" element={<Account />} />
       </Route>
 
       <Route path="/" element={<Navigate to="/es-en/app/learn/home" replace />} />

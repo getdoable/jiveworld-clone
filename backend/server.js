@@ -19,14 +19,55 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
-// --- Hardcoded credentials -------------------------------------------------
-const VALID_USERNAME = 'testuser@jiveworld.com';
-const VALID_PASSWORD = 'password123';
+// --- In-memory account state ----------------------------------------------
+// Mutable, resets to these defaults on every server restart. Keeping it in
+// memory (not on disk) means a fresh boot is always deterministic for the
+// crawler baseline, while edits are fully functional within a running session.
 
-const FAKE_USER = {
-  name: 'Test User',
-  email: VALID_USERNAME,
-};
+// Formats a Date as "Mon DD, YYYY" (e.g. "Sep 20, 2026").
+function formatDate(d) {
+  const months = [
+    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+  ];
+  return `${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+}
+
+// Default renewal date: 30 days out from server start.
+function defaultRenews() {
+  const d = new Date();
+  d.setHours(0, 0, 0, 0);
+  d.setDate(d.getDate() + 30);
+  return formatDate(d);
+}
+
+function defaultAccount() {
+  return {
+    name: 'Test User',
+    email: 'testuser@jiveworld.com',
+    password: 'password123',
+    membership: {
+      plan: 'Jiveworld Español',
+      type: 'Monthly subscription',
+      amount: 'US$12.76',
+      renews: defaultRenews(),
+      status: 'active', // 'active' | 'canceled'
+      endsOn: null, // set to the renewal date when canceled
+      payment: { brand: 'Visa', last4: '4242', exp: '08/27' },
+    },
+  };
+}
+
+let account = defaultAccount();
+
+// Strips secrets before sending the account to the client.
+function publicAccount() {
+  return {
+    name: account.name,
+    email: account.email,
+    membership: account.membership,
+  };
+}
 
 /*
  * Builds a deterministic, fake JWT (header.payload.signature).
@@ -47,24 +88,111 @@ function makeFakeJwt(user) {
   return `${b64(header)}.${b64(payload)}.${signature}`;
 }
 
-const FAKE_JWT = makeFakeJwt(FAKE_USER);
+// The currently-valid token. Reissued on each successful login; edits to
+// name/email do not invalidate an existing session.
+let currentToken = makeFakeJwt(account);
+
+// True when the request carries the active session token.
+function isAuthed(req) {
+  const auth = req.headers.authorization || '';
+  const token = auth.startsWith('Bearer ') ? auth.slice(7) : '';
+  return Boolean(token) && token === currentToken;
+}
+
+// Express middleware guarding the account endpoints.
+function requireAuth(req, res, next) {
+  if (!isAuthed(req)) return res.status(401).json({ error: 'Unauthorized' });
+  return next();
+}
 
 // --- Auth ------------------------------------------------------------------
 app.post('/api/login', (req, res) => {
   const { username, password } = req.body || {};
-  if (username === VALID_USERNAME && password === VALID_PASSWORD) {
-    return res.status(200).json({ token: FAKE_JWT, user: FAKE_USER });
+  if (username === account.email && password === account.password) {
+    currentToken = makeFakeJwt(account);
+    return res.status(200).json({
+      token: currentToken,
+      user: { name: account.name, email: account.email },
+    });
   }
   return res.status(401).json({ error: 'Invalid credentials' });
 });
 
 app.get('/api/me', (req, res) => {
-  const auth = req.headers.authorization || '';
-  const token = auth.startsWith('Bearer ') ? auth.slice(7) : '';
-  if (token === FAKE_JWT) {
-    return res.status(200).json({ user: FAKE_USER });
+  if (!isAuthed(req)) return res.status(401).json({ error: 'Unauthorized' });
+  return res.status(200).json({ user: { name: account.name, email: account.email } });
+});
+
+// --- Account ---------------------------------------------------------------
+app.get('/api/account', requireAuth, (req, res) => {
+  return res.status(200).json(publicAccount());
+});
+
+// Update display name and/or email.
+app.patch('/api/account', requireAuth, (req, res) => {
+  const { name, email } = req.body || {};
+
+  if (name !== undefined) {
+    if (typeof name !== 'string' || name.trim() === '') {
+      return res.status(400).json({ error: 'Name cannot be empty.' });
+    }
+    account.name = name.trim();
   }
-  return res.status(401).json({ error: 'Unauthorized' });
+
+  if (email !== undefined) {
+    if (typeof email !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+      return res.status(400).json({ error: 'Enter a valid email address.' });
+    }
+    account.email = email.trim();
+  }
+
+  return res.status(200).json(publicAccount());
+});
+
+// Change password (verifies the current one).
+app.post('/api/account/password', requireAuth, (req, res) => {
+  const { currentPassword, newPassword } = req.body || {};
+  if (currentPassword !== account.password) {
+    return res.status(400).json({ error: 'Current password is incorrect.' });
+  }
+  if (typeof newPassword !== 'string' || newPassword.length < 6) {
+    return res.status(400).json({ error: 'New password must be at least 6 characters.' });
+  }
+  account.password = newPassword;
+  return res.status(200).json({ ok: true });
+});
+
+// Update the (fake) payment method.
+app.put('/api/account/payment', requireAuth, (req, res) => {
+  const { brand, last4, exp } = req.body || {};
+  if (typeof last4 !== 'string' || !/^\d{4}$/.test(last4)) {
+    return res.status(400).json({ error: 'Card number must end in 4 digits.' });
+  }
+  if (typeof exp !== 'string' || !/^\d{2}\/\d{2}$/.test(exp)) {
+    return res.status(400).json({ error: 'Expiry must be in MM/YY format.' });
+  }
+  account.membership.payment = {
+    brand: typeof brand === 'string' && brand.trim() ? brand.trim() : 'Card',
+    last4,
+    exp,
+  };
+  return res.status(200).json(account.membership);
+});
+
+// Cancel the subscription — keeps access until the renewal date.
+app.post('/api/account/cancel', requireAuth, (req, res) => {
+  account.membership.status = 'canceled';
+  account.membership.endsOn = account.membership.renews;
+  account.membership.renews = null;
+  return res.status(200).json(account.membership);
+});
+
+// Reactivate a canceled subscription.
+app.post('/api/account/resubscribe', requireAuth, (req, res) => {
+  account.membership.status = 'active';
+  account.membership.renews = account.membership.endsOn || defaultRenews();
+  account.membership.endsOn = null;
+  return res.status(200).json(account.membership);
 });
 
 // --- Study activity --------------------------------------------------------
@@ -79,13 +207,7 @@ function dayKey(d) {
   ).padStart(2, '0')}`;
 }
 
-app.get('/api/activity', (req, res) => {
-  const auth = req.headers.authorization || '';
-  const token = auth.startsWith('Bearer ') ? auth.slice(7) : '';
-  if (token !== FAKE_JWT) {
-    return res.status(401).json({ error: 'Unauthorized' });
-  }
-
+app.get('/api/activity', requireAuth, (req, res) => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 

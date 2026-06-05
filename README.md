@@ -25,9 +25,20 @@ npm start
 
 Serves:
 - `POST /api/login` — validates credentials, returns a fake JWT
-- `GET  /api/me` — returns the fake user for a valid `Authorization: Bearer` token
+- `GET  /api/me` — returns the user for a valid `Authorization: Bearer` token
+- `GET  /api/account` — returns `{ name, email, membership }` (no password)
+- `PATCH /api/account` — updates name and/or email
+- `POST /api/account/password` — verifies current password, sets a new one
+- `PUT  /api/account/payment` — updates the (fake) card on file
+- `POST /api/account/cancel` / `POST /api/account/resubscribe` — toggle membership
+- `GET  /api/activity` — returns `{ streak, activeDays }` for the streak calendar
 - `GET  /media/*.mp3` — returns `200` + `Content-Type: audio/mpeg` (placeholder)
 - `GET  /api/health` — `{ "ok": true }`
+
+The account/membership state is held **in memory** and resets to defaults on
+every server restart (so a fresh boot stays deterministic for the crawler).
+Login, `/api/me`, and `/api/account` all read the live state, so edits take
+effect immediately.
 
 ### 2. Frontend (Vite, port 5173)
 

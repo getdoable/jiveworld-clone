@@ -19,6 +19,15 @@ export function getUser() {
   }
 }
 
+// Merges fields into the stored user and broadcasts a `user-updated` event so
+// live UI (e.g. the sidebar + greeting) can react without a full reload.
+export function updateStoredUser(partial) {
+  const next = { ...getUser(), ...partial };
+  localStorage.setItem(USER_KEY, JSON.stringify(next));
+  window.dispatchEvent(new CustomEvent('user-updated', { detail: next }));
+  return next;
+}
+
 export function isAuthenticated() {
   return Boolean(getToken());
 }

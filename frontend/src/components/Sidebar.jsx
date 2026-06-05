@@ -36,11 +36,20 @@ function NavItem({ to, label, icon, active }) {
 export default function Sidebar() {
   const location = useLocation();
   const navigate = useNavigate();
-  const user = getUser();
   const path = location.pathname;
   const [aboutOpen, setAboutOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [user, setUser] = useState(getUser);
   const menuRef = useRef(null);
+
+  // Keep the name/email in sync when the account page edits them.
+  useEffect(() => {
+    function onUserUpdated(e) {
+      setUser(e.detail || getUser());
+    }
+    window.addEventListener('user-updated', onUserUpdated);
+    return () => window.removeEventListener('user-updated', onUserUpdated);
+  }, []);
 
   const isHome = path.startsWith(`${BASE}/home`);
   const isStories =
@@ -73,7 +82,8 @@ export default function Sidebar() {
     setMenuOpen(false);
     if (key === 'signout') handleLogout();
     else if (key === 'reload') window.location.reload();
-    // account / settings / redeem / support / share have no destination yet.
+    else if (key === 'account') navigate(`${BASE}/account`);
+    // settings / redeem / support / share have no destination yet.
   }
 
   return (

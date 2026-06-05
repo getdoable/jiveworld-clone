@@ -195,6 +195,20 @@
       ]
     },
     {
+      "url": "/es-en/app/learn/account",
+      "status": 200,
+      "pageState": "account",
+      "requiresAuth": true,
+      "links": [],
+      "uiElements": [
+        "Heading 'My account'",
+        "'Sign out' button",
+        "Section 'My details': First name, Email, Password rows with 'Edit'",
+        "Section 'My membership': plan, type, renews, amount, 'View / update'",
+        "'Cancel subscription' link"
+      ]
+    },
+    {
       "url": "/es-en/app/learn/stories/perdido-en-san-jose",
       "status": 200,
       "pageState": "story:perdido-en-san-jose",
@@ -416,11 +430,60 @@
       "notes": "Requires 'Authorization: Bearer <token>' header matching the fake JWT."
     },
     {
+      "url": "/api/account",
+      "method": "GET",
+      "successStatus": 200,
+      "failureStatus": 401,
+      "notes": "Requires Bearer token. Returns { name, email, membership } (no password)."
+    },
+    {
+      "url": "/api/account",
+      "method": "PATCH",
+      "successStatus": 200,
+      "failureStatus": 400,
+      "notes": "Updates name and/or email. 400 on invalid/empty email. 401 without token."
+    },
+    {
+      "url": "/api/account/password",
+      "method": "POST",
+      "successStatus": 200,
+      "failureStatus": 400,
+      "notes": "Body { currentPassword, newPassword }. 400 if current is wrong or new < 6 chars."
+    },
+    {
+      "url": "/api/account/payment",
+      "method": "PUT",
+      "successStatus": 200,
+      "failureStatus": 400,
+      "notes": "Body { brand, last4, exp }. Updates the (fake) card. 400 on invalid last4/exp."
+    },
+    {
+      "url": "/api/account/cancel",
+      "method": "POST",
+      "successStatus": 200,
+      "failureStatus": 401,
+      "notes": "Cancels subscription: status->canceled, sets endsOn to the renewal date."
+    },
+    {
+      "url": "/api/account/resubscribe",
+      "method": "POST",
+      "successStatus": 200,
+      "failureStatus": 401,
+      "notes": "Reactivates a canceled subscription: status->active."
+    },
+    {
       "url": "/media/{slug}.mp3",
       "method": "GET",
       "status": 200,
       "contentType": "audio/mpeg",
       "notes": "Any /media/*.mp3 path returns 200 with a placeholder audio body."
+    },
+    {
+      "url": "/api/activity",
+      "method": "GET",
+      "successStatus": 200,
+      "failureStatus": 401,
+      "notes": "Requires Bearer token. Returns { streak, activeDays: ['YYYY-MM-DD', ...] }."
     },
     {
       "url": "/api/health",
