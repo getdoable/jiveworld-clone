@@ -43,20 +43,20 @@ export default function Login() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
+    <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-900 px-4">
       <PageMarker state="login" />
-      <div className="w-full max-w-sm rounded-2xl border border-gray-100 bg-white p-8 shadow-sm">
+      <div className="w-full max-w-sm rounded-2xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-800 p-8 shadow-sm">
         <div className="flex justify-center">
           <Logo />
         </div>
-        <h1 className="mt-6 text-center text-2xl font-bold text-jw-ink">Log in</h1>
-        <p className="mt-1 text-center text-sm text-gray-500">
+        <h1 className="mt-6 text-center text-2xl font-bold text-jw-ink dark:text-gray-100">Log in</h1>
+        <p className="mt-1 text-center text-sm text-gray-500 dark:text-gray-400">
           Welcome back to Jiveworld Español
         </p>
 
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           <div>
-            <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="username" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
               Email
             </label>
             <input
@@ -66,13 +66,13 @@ export default function Login() {
               autoComplete="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-jw-blue"
+              className="mt-1 w-full rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 px-3 py-2 outline-none focus:border-jw-blue"
               placeholder="testuser@jiveworld.com"
               required
             />
           </div>
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
               Password
             </label>
             <input
@@ -82,7 +82,7 @@ export default function Login() {
               autoComplete="current-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-jw-blue"
+              className="mt-1 w-full rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 px-3 py-2 outline-none focus:border-jw-blue"
               placeholder="••••••••"
               required
             />
@@ -103,7 +103,7 @@ export default function Login() {
           </button>
         </form>
 
-        <p className="mt-6 text-center text-xs text-gray-400">
+        <p className="mt-6 text-center text-xs text-gray-400 dark:text-gray-400">
           Demo credentials: testuser@jiveworld.com / password123
         </p>
       </div>

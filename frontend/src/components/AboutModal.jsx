@@ -49,7 +49,7 @@ export default function AboutModal({ open, onClose }) {
       role="presentation"
     >
       <div
-        className="animate-modal-pop w-full max-w-md rounded-3xl bg-white p-8 shadow-xl"
+        className="animate-modal-pop w-full max-w-md rounded-3xl bg-white dark:bg-gray-900 p-8 shadow-xl"
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
@@ -57,7 +57,7 @@ export default function AboutModal({ open, onClose }) {
       >
         <Wordmark />
 
-        <p className="mt-8 text-lg leading-relaxed text-jw-ink">
+        <p className="mt-8 text-lg leading-relaxed text-jw-ink dark:text-gray-100">
           Fluency starts with listening — understanding the language as it's really spoken.
           Jiveworld Español brings you stories in real Spanish from all over Latin America by the
           award-winning Radio Ambulante podcast. We'll guide you through the idioms, the cultures
@@ -65,7 +65,7 @@ export default function AboutModal({ open, onClose }) {
           down, or say it again.
         </p>
 
-        <p className="mt-6 text-lg text-jw-ink">
+        <p className="mt-6 text-lg text-jw-ink dark:text-gray-100">
           Learn more at{' '}
           <a
             href="https://jiveworld.com"
@@ -79,19 +79,19 @@ export default function AboutModal({ open, onClose }) {
 
         <button
           type="button"
-          className="mt-8 flex w-full items-center justify-between rounded-xl border border-gray-200 px-4 py-4 text-left hover:bg-gray-50"
+          className="mt-8 flex w-full items-center justify-between rounded-xl border border-gray-200 dark:border-gray-800 px-4 py-4 text-left hover:bg-gray-50 dark:hover:bg-gray-800"
         >
-          <span className="flex items-center gap-3 text-lg font-semibold text-jw-ink">
+          <span className="flex items-center gap-3 text-lg font-semibold text-jw-ink dark:text-gray-100">
             <span aria-hidden="true">🌐</span>
             Jiveworld Español (English)
           </span>
-          <span className="text-2xl text-gray-400">›</span>
+          <span className="text-2xl text-gray-400 dark:text-gray-400">›</span>
         </button>
 
         <button
           type="button"
           onClick={onClose}
-          className="mt-3 w-full rounded-xl bg-gray-100 px-4 py-4 text-lg font-semibold text-gray-600 hover:bg-gray-200"
+          className="mt-3 w-full rounded-xl bg-gray-100 dark:bg-gray-800 px-4 py-4 text-lg font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
         >
           Close
         </button>

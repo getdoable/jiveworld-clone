@@ -30,9 +30,9 @@ export default function CollectionDetail() {
           aria-hidden="true"
         />
         <div>
-          <h1 className="text-4xl font-extrabold text-jw-ink">{collection.title}</h1>
-          <p className="mt-3 max-w-2xl text-lg text-gray-600">{collection.description}</p>
-          <p className="mt-2 text-sm text-gray-400">{stories.length} stories</p>
+          <h1 className="text-4xl font-extrabold text-jw-ink dark:text-gray-100">{collection.title}</h1>
+          <p className="mt-3 max-w-2xl text-lg text-gray-600 dark:text-gray-300">{collection.description}</p>
+          <p className="mt-2 text-sm text-gray-400 dark:text-gray-400">{stories.length} stories</p>
         </div>
       </div>
 

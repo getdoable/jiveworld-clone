@@ -20,16 +20,16 @@ const STATUS_OPTIONS = [
 function StatusIcon({ statusKey, active }) {
   switch (statusKey) {
     case 'unplayed':
-      return <span className="text-xl leading-none text-gray-400">○</span>;
+      return <span className="text-xl leading-none text-gray-400 dark:text-gray-400">○</span>;
     case 'studyLater':
-      return <span className="text-lg leading-none text-gray-400">🕐</span>;
+      return <span className="text-lg leading-none text-gray-400 dark:text-gray-400">🕐</span>;
     case 'inProgress':
-      return <span className="text-xl leading-none text-gray-400">◐</span>;
+      return <span className="text-xl leading-none text-gray-400 dark:text-gray-400">◐</span>;
     case 'completed':
       return (
         <span
           className={`grid h-6 w-6 place-items-center rounded-full text-sm text-white ${
-            active ? 'bg-jw-blue' : 'bg-gray-300'
+            active ? 'bg-jw-blue' : 'bg-gray-300 dark:bg-gray-600'
           }`}
         >
           ✓
@@ -125,9 +125,9 @@ export default function Stories() {
             aria-expanded={menuOpen}
           >
             <StatusIcon statusKey={activeKey} active />
-            <h1 className="text-4xl font-extrabold text-jw-ink">{label}</h1>
+            <h1 className="text-4xl font-extrabold text-jw-ink dark:text-gray-100">{label}</h1>
             <span
-              className={`text-2xl text-gray-400 transition-transform ${
+              className={`text-2xl text-gray-400 dark:text-gray-400 transition-transform ${
                 menuOpen ? 'rotate-180' : ''
               }`}
             >
@@ -138,7 +138,7 @@ export default function Stories() {
           {menuOpen && (
             <div
               role="menu"
-              className="animate-modal-pop absolute left-0 z-30 mt-3 w-64 overflow-hidden rounded-2xl bg-white py-2 shadow-xl ring-1 ring-black/5"
+              className="animate-modal-pop absolute left-0 z-30 mt-3 w-64 overflow-hidden rounded-2xl bg-white dark:bg-gray-900 py-2 shadow-xl ring-1 ring-black/5"
             >
               {STATUS_OPTIONS.map((opt) => {
                 const isActive = activeKey === opt.key;
@@ -149,7 +149,7 @@ export default function Stories() {
                       href={opt.href}
                       role="menuitem"
                       onClick={(e) => go(e, opt.href)}
-                      className="block border-b border-gray-100 px-5 py-3 text-lg font-semibold text-jw-ink hover:bg-gray-50"
+                      className="block border-b border-gray-100 dark:border-gray-800 px-5 py-3 text-lg font-semibold text-jw-ink dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800"
                     >
                       {opt.label}
                     </a>
@@ -161,8 +161,8 @@ export default function Stories() {
                     href={opt.href}
                     role="menuitem"
                     onClick={(e) => go(e, opt.href)}
-                    className={`flex items-center gap-3 px-5 py-3 text-lg hover:bg-gray-50 ${
-                      isActive ? 'font-semibold text-jw-blue' : 'text-jw-ink'
+                    className={`flex items-center gap-3 px-5 py-3 text-lg hover:bg-gray-50 dark:hover:bg-gray-800 ${
+                      isActive ? 'font-semibold text-jw-blue' : 'text-jw-ink dark:text-gray-100'
                     }`}
                   >
                     <span className="grid w-6 place-items-center">
@@ -181,16 +181,16 @@ export default function Stories() {
           <a
             href={`${BASE}/stories`}
             onClick={(e) => go(e, `${BASE}/stories`)}
-            className="rounded-full bg-gray-100 px-4 py-1.5 text-sm font-semibold text-gray-600 hover:bg-gray-200"
+            className="rounded-full bg-gray-100 dark:bg-gray-800 px-4 py-1.5 text-sm font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
           >
             Show all
           </a>
         )}
 
-        <span className="ml-auto text-sm text-gray-400">{stories.length} stories</span>
+        <span className="ml-auto text-sm text-gray-400 dark:text-gray-400">{stories.length} stories</span>
       </div>
 
-      <div className="mt-2 border-b border-gray-100 pb-2">
+      <div className="mt-2 border-b border-gray-100 dark:border-gray-800 pb-2">
         <a href="#" className="inline-flex items-center gap-2 py-3 text-jw-blue hover:underline">
           🎧 My podcast feed
         </a>
@@ -201,7 +201,7 @@ export default function Stories() {
           <StoryCard key={s.slug} story={s} layout="row" />
         ))}
         {stories.length === 0 && (
-          <p className="py-10 text-gray-500">No stories match this filter.</p>
+          <p className="py-10 text-gray-500 dark:text-gray-400">No stories match this filter.</p>
         )}
       </div>
     </div>

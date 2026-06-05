@@ -13,7 +13,7 @@ function ActionButton({ children, primary }) {
       className={`rounded-lg px-5 py-2.5 text-sm font-semibold transition ${
         primary
           ? 'bg-jw-ink text-white hover:bg-black'
-          : 'border border-gray-300 text-gray-700 hover:border-gray-500'
+          : 'border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-gray-500'
       }`}
     >
       {children}
@@ -24,21 +24,21 @@ function ActionButton({ children, primary }) {
 function ChapterRow({ chapter }) {
   const done = chapter.status === 'Done';
   return (
-    <li className="flex items-center gap-4 border-b border-gray-100 py-4">
+    <li className="flex items-center gap-4 border-b border-gray-100 dark:border-gray-800 py-4">
       <span
         className={`grid h-7 w-7 place-items-center rounded-full text-sm ${
-          done ? 'bg-jw-blue text-white' : 'border-2 border-gray-300 text-gray-400'
+          done ? 'bg-jw-blue text-white' : 'border-2 border-gray-300 dark:border-gray-700 text-gray-400 dark:text-gray-400'
         }`}
       >
         {done ? '✓' : chapter.n}
       </span>
       <div className="flex-1">
-        <div className="text-xs font-semibold uppercase tracking-wide text-gray-400">
+        <div className="text-xs font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-400">
           Chapter {chapter.n}
         </div>
-        <div className="font-semibold text-jw-ink">{chapter.title}</div>
+        <div className="font-semibold text-jw-ink dark:text-gray-100">{chapter.title}</div>
       </div>
-      <span className="text-sm text-gray-400">{chapter.duration}</span>
+      <span className="text-sm text-gray-400 dark:text-gray-400">{chapter.duration}</span>
       <span
         className={`w-24 text-right text-sm font-semibold ${
           done ? 'text-jw-blue' : 'text-jw-orange'
@@ -84,16 +84,16 @@ export default function StoryDetail() {
               aria-hidden="true"
             />
             <div>
-              <h1 className="text-4xl font-extrabold text-jw-ink">{story.title}</h1>
-              <div className="mt-1 text-gray-500">{story.author}</div>
-              <div className="mt-2 text-sm text-gray-500">
+              <h1 className="text-4xl font-extrabold text-jw-ink dark:text-gray-100">{story.title}</h1>
+              <div className="mt-1 text-gray-500 dark:text-gray-400">{story.author}</div>
+              <div className="mt-2 text-sm text-gray-500 dark:text-gray-400">
                 {story.duration} · {story.chapters.length} chapters
               </div>
               <div className="mt-3 flex flex-wrap gap-2">
                 {story.tags.map((t) => (
                   <span
                     key={t}
-                    className="rounded-md bg-gray-100 px-2.5 py-1 text-xs font-medium text-gray-600"
+                    className="rounded-md bg-gray-100 dark:bg-gray-800 px-2.5 py-1 text-xs font-medium text-gray-600 dark:text-gray-300"
                   >
                     {t}
                   </span>
@@ -102,7 +102,7 @@ export default function StoryDetail() {
             </div>
           </div>
 
-          <p className="mt-6 text-lg text-gray-700">{story.description}</p>
+          <p className="mt-6 text-lg text-gray-700 dark:text-gray-300">{story.description}</p>
 
           {/* Placeholder audio player */}
           <div className="mt-6">
@@ -122,7 +122,7 @@ export default function StoryDetail() {
 
           {/* Chapters */}
           <section className="mt-10">
-            <h2 className="text-2xl font-bold text-jw-ink">Chapters</h2>
+            <h2 className="text-2xl font-bold text-jw-ink dark:text-gray-100">Chapters</h2>
             <ul className="mt-3">
               {story.chapters.map((c) => (
                 <ChapterRow key={c.n} chapter={c} />
@@ -133,7 +133,7 @@ export default function StoryDetail() {
           {/* Soundbites & Games */}
           <section className="mt-10" id="soundbites">
             <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-bold text-jw-ink">Soundbites &amp; Games</h2>
+              <h2 className="text-2xl font-bold text-jw-ink dark:text-gray-100">Soundbites &amp; Games</h2>
               <button
                 type="button"
                 onClick={() => setSbOpen((v) => !v)}
@@ -143,7 +143,7 @@ export default function StoryDetail() {
                 {sbOpen ? 'Collapse' : 'Expand'}
               </button>
             </div>
-            <div className="mt-2 flex gap-6 text-sm font-semibold text-gray-500">
+            <div className="mt-2 flex gap-6 text-sm font-semibold text-gray-500 dark:text-gray-400">
               <span className="text-jw-orange">0/7 Soundbites</span>
               <span className="text-jw-purple">0/9 Games</span>
             </div>
@@ -158,10 +158,10 @@ export default function StoryDetail() {
                     {SOUNDBITES.map((sb) => (
                       <li
                         key={sb}
-                        className="flex items-center gap-3 rounded-lg border border-gray-100 px-4 py-3"
+                        className="flex items-center gap-3 rounded-lg border border-gray-100 dark:border-gray-800 px-4 py-3"
                       >
                         <span className="text-jw-orange">▮▮▮</span>
-                        <span className="font-medium text-jw-ink">{sb}</span>
+                        <span className="font-medium text-jw-ink dark:text-gray-100">{sb}</span>
                       </li>
                     ))}
                   </ul>
@@ -174,10 +174,10 @@ export default function StoryDetail() {
                     {GAMES.map((g) => (
                       <li
                         key={g}
-                        className="flex items-center gap-3 rounded-lg border border-gray-100 px-4 py-3"
+                        className="flex items-center gap-3 rounded-lg border border-gray-100 dark:border-gray-800 px-4 py-3"
                       >
                         <span className="text-jw-purple">◆</span>
-                        <span className="font-medium text-jw-ink">{g}</span>
+                        <span className="font-medium text-jw-ink dark:text-gray-100">{g}</span>
                       </li>
                     ))}
                   </ul>
@@ -189,10 +189,10 @@ export default function StoryDetail() {
           {/* Collection */}
           {collection && (
             <section className="mt-10">
-              <h2 className="text-2xl font-bold text-jw-ink">Collection</h2>
+              <h2 className="text-2xl font-bold text-jw-ink dark:text-gray-100">Collection</h2>
               <Link
                 to={`${BASE}/collections/${collection.slug}`}
-                className="mt-3 flex items-center gap-4 rounded-2xl border border-gray-100 p-4 hover:bg-gray-50"
+                className="mt-3 flex items-center gap-4 rounded-2xl border border-gray-100 dark:border-gray-800 p-4 hover:bg-gray-50 dark:hover:bg-gray-800"
               >
                 <div
                   className="h-16 w-16 shrink-0 rounded-xl"
@@ -200,8 +200,8 @@ export default function StoryDetail() {
                   aria-hidden="true"
                 />
                 <div>
-                  <div className="font-bold text-jw-ink">{collection.shortTitle}</div>
-                  <div className="text-sm text-gray-500">{collection.title}</div>
+                  <div className="font-bold text-jw-ink dark:text-gray-100">{collection.shortTitle}</div>
+                  <div className="text-sm text-gray-500 dark:text-gray-400">{collection.title}</div>
                 </div>
               </Link>
             </section>
@@ -209,7 +209,7 @@ export default function StoryDetail() {
 
           {/* Related stories */}
           <section className="mt-10">
-            <h2 className="text-2xl font-bold text-jw-ink">Related stories</h2>
+            <h2 className="text-2xl font-bold text-jw-ink dark:text-gray-100">Related stories</h2>
             <div className="mt-4 grid grid-cols-1 gap-8 sm:grid-cols-2">
               {related.map((s) => (
                 <StoryCard key={s.slug} story={s} />
@@ -220,30 +220,30 @@ export default function StoryDetail() {
 
         {/* Right sidebar: My story progress */}
         <aside className="lg:pt-1">
-          <div className="rounded-2xl border border-gray-100 bg-gray-50 p-6">
-            <h2 className="text-lg font-bold text-jw-ink">My story progress</h2>
+          <div className="rounded-2xl border border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-800 p-6">
+            <h2 className="text-lg font-bold text-jw-ink dark:text-gray-100">My story progress</h2>
             <div className="mt-4 space-y-3 text-sm">
               <div className="flex justify-between">
-                <span className="text-gray-500">Status</span>
-                <span className="font-semibold text-jw-ink">{story.progressLabel}</span>
+                <span className="text-gray-500 dark:text-gray-400">Status</span>
+                <span className="font-semibold text-jw-ink dark:text-gray-100">{story.progressLabel}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-500">Chapters done</span>
-                <span className="font-semibold text-jw-ink">
+                <span className="text-gray-500 dark:text-gray-400">Chapters done</span>
+                <span className="font-semibold text-jw-ink dark:text-gray-100">
                   {story.chapters.filter((c) => c.status === 'Done').length}/
                   {story.chapters.length}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-500">Soundbites</span>
-                <span className="font-semibold text-jw-ink">0/7</span>
+                <span className="text-gray-500 dark:text-gray-400">Soundbites</span>
+                <span className="font-semibold text-jw-ink dark:text-gray-100">0/7</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-500">Games</span>
-                <span className="font-semibold text-jw-ink">0/9</span>
+                <span className="text-gray-500 dark:text-gray-400">Games</span>
+                <span className="font-semibold text-jw-ink dark:text-gray-100">0/9</span>
               </div>
             </div>
-            <div className="mt-5 h-2 w-full overflow-hidden rounded-full bg-gray-200">
+            <div className="mt-5 h-2 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
               <div
                 className="h-full rounded-full bg-jw-blue"
                 style={{

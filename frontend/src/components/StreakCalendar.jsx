@@ -52,21 +52,21 @@ export default function StreakCalendar({ streak = 0, activeDays = new Set() }) {
   }
 
   return (
-    <div className="rounded-2xl bg-gray-50 p-6">
-      <div className="text-2xl font-bold text-jw-ink">Current streak</div>
-      <div className="mt-1 flex items-center gap-2 text-2xl font-bold text-jw-ink">
+    <div className="rounded-2xl bg-gray-50 dark:bg-gray-800 p-6">
+      <div className="text-2xl font-bold text-jw-ink dark:text-gray-100">Current streak</div>
+      <div className="mt-1 flex items-center gap-2 text-2xl font-bold text-jw-ink dark:text-gray-100">
         <span className="text-jw-orange">🔥</span>
         {streak}
       </div>
 
       <div className="mt-4 flex items-center justify-end gap-3">
-        <span className="text-xl font-bold text-jw-ink">
+        <span className="text-xl font-bold text-jw-ink dark:text-gray-100">
           {MONTHS[view.month]} {view.year}
         </span>
         <button
           type="button"
           onClick={() => shift(-1)}
-          className="text-2xl leading-none text-jw-ink hover:opacity-70"
+          className="text-2xl leading-none text-jw-ink dark:text-gray-100 hover:opacity-70"
           aria-label="Previous month"
         >
           ←
@@ -76,7 +76,7 @@ export default function StreakCalendar({ streak = 0, activeDays = new Set() }) {
           onClick={() => shift(1)}
           disabled={isCurrentMonth}
           className={`text-2xl leading-none ${
-            isCurrentMonth ? 'cursor-default text-gray-300' : 'text-jw-ink hover:opacity-70'
+            isCurrentMonth ? 'cursor-default text-gray-300 dark:text-gray-600' : 'text-jw-ink dark:text-gray-100 hover:opacity-70'
           }`}
           aria-label="Next month"
         >
@@ -84,8 +84,8 @@ export default function StreakCalendar({ streak = 0, activeDays = new Set() }) {
         </button>
       </div>
 
-      <div className="mt-3 border-t border-gray-200 pt-3">
-        <div className="grid grid-cols-7 text-center text-sm font-medium text-gray-400">
+      <div className="mt-3 border-t border-gray-200 dark:border-gray-800 pt-3">
+        <div className="grid grid-cols-7 text-center text-sm font-medium text-gray-400 dark:text-gray-400">
           {WEEKDAYS.map((d, i) => (
             <div key={i} className="py-2">
               {d}
@@ -102,9 +102,9 @@ export default function StreakCalendar({ streak = 0, activeDays = new Set() }) {
             if (isActive) {
               cls += ' bg-jw-orange font-semibold text-white';
             } else if (isToday) {
-              cls += ' border-2 border-jw-orange/60 text-gray-600';
+              cls += ' border-2 border-jw-orange/60 text-gray-600 dark:text-gray-300';
             } else {
-              cls += cell.inMonth ? ' text-gray-600' : ' text-gray-300';
+              cls += cell.inMonth ? ' text-gray-600 dark:text-gray-300' : ' text-gray-300 dark:text-gray-600';
             }
 
             return (

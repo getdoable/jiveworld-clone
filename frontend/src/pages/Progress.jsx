@@ -17,8 +17,8 @@ const completed = STORIES.filter((s) => s.primary === 'completed');
 function StatTile({ value, label, bg, to }) {
   const inner = (
     <>
-      <div className="text-3xl font-extrabold text-jw-ink">{value}</div>
-      <div className="mt-1 text-sm font-semibold uppercase tracking-wide text-gray-500">
+      <div className="text-3xl font-extrabold text-jw-ink dark:text-gray-100">{value}</div>
+      <div className="mt-1 text-sm font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
         {label}
       </div>
     </>
@@ -56,21 +56,21 @@ export default function Progress() {
   return (
     <div className="mx-auto max-w-5xl px-10 py-10">
       <PageMarker state="progress" />
-      <h1 className="text-4xl font-extrabold text-jw-ink">My stats</h1>
+      <h1 className="text-4xl font-extrabold text-jw-ink dark:text-gray-100">My stats</h1>
 
       {/* Top row: weekly points + current streak */}
       <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
-        <div className="rounded-2xl bg-gray-50 p-6">
+        <div className="rounded-2xl bg-gray-50 dark:bg-gray-800 p-6">
           <div className="flex items-start justify-between">
             <div>
-              <div className="text-sm font-semibold text-gray-400">Last week</div>
-              <div className="mt-1 flex items-center gap-1 text-2xl font-bold text-gray-400">
+              <div className="text-sm font-semibold text-gray-400 dark:text-gray-400">Last week</div>
+              <div className="mt-1 flex items-center gap-1 text-2xl font-bold text-gray-400 dark:text-gray-400">
                 <span className="text-jw-gold">★</span>22
               </div>
             </div>
             <div className="text-right">
-              <div className="text-sm font-semibold text-jw-ink">This week</div>
-              <div className="mt-1 flex items-center justify-end gap-1 text-2xl font-bold text-jw-ink">
+              <div className="text-sm font-semibold text-jw-ink dark:text-gray-100">This week</div>
+              <div className="mt-1 flex items-center justify-end gap-1 text-2xl font-bold text-jw-ink dark:text-gray-100">
                 <span className="text-jw-gold">★</span>0
               </div>
             </div>
@@ -85,7 +85,7 @@ export default function Progress() {
                   style={{ height: `${h}%` }}
                   aria-hidden="true"
                 />
-                <span className="mt-2 text-xs text-gray-400">{DAY_LABELS[i]}</span>
+                <span className="mt-2 text-xs text-gray-400 dark:text-gray-400">{DAY_LABELS[i]}</span>
               </div>
             ))}
           </div>
@@ -99,29 +99,29 @@ export default function Progress() {
 
       {/* Headline stat tiles */}
       <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-3">
-        <StatTile value={String(completed.length)} label="Total points" bg="bg-yellow-50" />
-        <StatTile value="1 day" label="Longest streak" bg="bg-orange-50" />
-        <StatTile value="2" label="Days with study" bg="bg-sky-50" />
+        <StatTile value={String(completed.length)} label="Total points" bg="bg-yellow-50 dark:bg-yellow-500/10" />
+        <StatTile value="1 day" label="Longest streak" bg="bg-orange-50 dark:bg-orange-500/10" />
+        <StatTile value="2" label="Days with study" bg="bg-sky-50 dark:bg-sky-500/10" />
       </div>
 
       {/* Detailed stat grid */}
       <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-3">
-        <StatTile value="0m" label="Listened" bg="bg-sky-50" />
+        <StatTile value="0m" label="Listened" bg="bg-sky-50 dark:bg-sky-500/10" />
         <StatTile
           value="3"
           label="Stories completed"
-          bg="bg-sky-50"
+          bg="bg-sky-50 dark:bg-sky-500/10"
           to={`${BASE}/stories?primary=completed`}
         />
-        <StatTile value="35" label="Chapters completed" bg="bg-sky-50" />
-        <StatTile value="0" label="Vocab learned" bg="bg-green-50" />
-        <StatTile value="0" label="Vocab to review" bg="bg-purple-50" />
-        <StatTile value="0" label="Soundbites completed" bg="bg-orange-50" />
+        <StatTile value="35" label="Chapters completed" bg="bg-sky-50 dark:bg-sky-500/10" />
+        <StatTile value="0" label="Vocab learned" bg="bg-green-50 dark:bg-green-500/10" />
+        <StatTile value="0" label="Vocab to review" bg="bg-purple-50 dark:bg-purple-500/10" />
+        <StatTile value="0" label="Soundbites completed" bg="bg-orange-50 dark:bg-orange-500/10" />
       </div>
 
       {/* Recently completed stories */}
       <section className="mt-12">
-        <h2 className="text-2xl font-bold text-jw-ink">Recently completed</h2>
+        <h2 className="text-2xl font-bold text-jw-ink dark:text-gray-100">Recently completed</h2>
         <div className="mt-5 grid grid-cols-1 gap-8 sm:grid-cols-3">
           {completed.map((s) => (
             <StoryCard key={s.slug} story={s} />

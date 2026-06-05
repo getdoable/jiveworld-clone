@@ -42,17 +42,17 @@ function ProgressRow({ icon, label, count, to, indent }) {
   return (
     <Link
       to={to}
-      className={`flex items-center justify-between border-b border-gray-100 py-3 last:border-0 hover:bg-gray-100/60 ${
+      className={`flex items-center justify-between border-b border-gray-100 dark:border-gray-800 py-3 last:border-0 hover:bg-gray-100/60 dark:hover:bg-gray-800 ${
         indent ? 'pl-8' : ''
       }`}
     >
       <span className="flex items-center gap-3">
         {icon && <span className="w-5 text-center text-lg">{icon}</span>}
-        <span className="text-lg font-medium text-jw-ink">{label}</span>
+        <span className="text-lg font-medium text-jw-ink dark:text-gray-100">{label}</span>
       </span>
-      <span className="flex items-center gap-2 text-lg text-gray-400">
+      <span className="flex items-center gap-2 text-lg text-gray-400 dark:text-gray-400">
         {count}
-        <span className="text-gray-300">›</span>
+        <span className="text-gray-300 dark:text-gray-600">›</span>
       </span>
     </Link>
   );
@@ -67,18 +67,18 @@ export default function Home() {
 
       {/* Greeting + headline counters */}
       <header className="flex items-center justify-between">
-        <h1 className="text-4xl font-extrabold text-jw-ink">Hola, {user.name}</h1>
+        <h1 className="text-4xl font-extrabold text-jw-ink dark:text-gray-100">Hola, {user.name}</h1>
         <div className="flex items-center gap-6">
           <Link
             to={`${BASE}/progress`}
-            className="flex items-center gap-2 text-2xl font-bold text-jw-ink no-underline"
+            className="flex items-center gap-2 text-2xl font-bold text-jw-ink dark:text-gray-100 no-underline"
           >
             <span className="text-jw-orange">🔥</span>
             {STREAK}
           </Link>
           <Link
             to={`${BASE}/progress`}
-            className="flex items-center gap-2 text-2xl font-bold text-jw-ink no-underline"
+            className="flex items-center gap-2 text-2xl font-bold text-jw-ink dark:text-gray-100 no-underline"
           >
             <span className="text-jw-gold">★</span>
             {POINTS}
@@ -88,8 +88,8 @@ export default function Home() {
 
       {/* Where you were — resume card */}
       <section className="mt-10">
-        <div className="flex items-baseline justify-between border-b border-gray-100 pb-3">
-          <h2 className="text-2xl font-bold text-jw-ink">Where you were</h2>
+        <div className="flex items-baseline justify-between border-b border-gray-100 dark:border-gray-800 pb-3">
+          <h2 className="text-2xl font-bold text-jw-ink dark:text-gray-100">Where you were</h2>
           <Link
             to={`${BASE}/stories?primary=inProgress`}
             className="text-jw-blue hover:underline"
@@ -104,7 +104,7 @@ export default function Home() {
       {/* Two-column: progress list + weekly chart */}
       <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
         {/* Progress filters */}
-        <div className="rounded-2xl bg-gray-50 p-4">
+        <div className="rounded-2xl bg-gray-50 dark:bg-gray-800 p-4">
           <ProgressRow
             icon={<span className="text-jw-orange">🕐</span>}
             label="Study later"
@@ -119,7 +119,7 @@ export default function Home() {
           />
           <ProgressRow
             icon={
-              <span className="grid h-5 w-5 place-items-center rounded-full bg-gray-300 text-xs text-white">
+              <span className="grid h-5 w-5 place-items-center rounded-full bg-gray-300 dark:bg-gray-600 text-xs text-white">
                 ✓
               </span>
             }
@@ -148,17 +148,17 @@ export default function Home() {
         </div>
 
         {/* Weekly points chart */}
-        <div className="rounded-2xl bg-gray-50 p-6">
+        <div className="rounded-2xl bg-gray-50 dark:bg-gray-800 p-6">
           <div className="flex items-start justify-between">
             <div>
-              <div className="text-sm font-semibold text-gray-400">Last week</div>
-              <div className="mt-1 flex items-center gap-1 text-2xl font-bold text-gray-400">
+              <div className="text-sm font-semibold text-gray-400 dark:text-gray-400">Last week</div>
+              <div className="mt-1 flex items-center gap-1 text-2xl font-bold text-gray-400 dark:text-gray-400">
                 <span className="text-jw-gold">★</span>22
               </div>
             </div>
             <div className="text-right">
-              <div className="text-sm font-semibold text-jw-ink">This week</div>
-              <div className="mt-1 flex items-center justify-end gap-1 text-2xl font-bold text-jw-ink">
+              <div className="text-sm font-semibold text-jw-ink dark:text-gray-100">This week</div>
+              <div className="mt-1 flex items-center justify-end gap-1 text-2xl font-bold text-jw-ink dark:text-gray-100">
                 <span className="text-jw-gold">★</span>
                 {POINTS - 22}
               </div>
@@ -169,7 +169,7 @@ export default function Home() {
             {WEEK_BARS.map((b, i) => (
               <div key={i} className="flex h-full flex-1 flex-col items-center justify-end">
                 {b.value ? (
-                  <span className="mb-1 text-xs font-semibold text-gray-500">{b.value}</span>
+                  <span className="mb-1 text-xs font-semibold text-gray-500 dark:text-gray-400">{b.value}</span>
                 ) : null}
                 <div
                   className={`w-3 rounded-md ${
@@ -178,7 +178,7 @@ export default function Home() {
                   style={{ height: `${b.h}%` }}
                   aria-hidden="true"
                 />
-                <span className="mt-2 text-xs text-gray-400">{DAY_LABELS[i]}</span>
+                <span className="mt-2 text-xs text-gray-400 dark:text-gray-400">{DAY_LABELS[i]}</span>
               </div>
             ))}
           </div>

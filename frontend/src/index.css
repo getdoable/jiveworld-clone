@@ -15,6 +15,11 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+html.dark body {
+  background: #0f1419;
+  color: #e5e7eb;
+}
+
 @keyframes modal-pop {
   from {
     opacity: 0;

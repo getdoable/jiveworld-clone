@@ -13,7 +13,7 @@ export default function AppLayout() {
   }
 
   return (
-    <div className="flex min-h-screen bg-white">
+    <div className="flex min-h-screen bg-white dark:bg-gray-900">
       <Sidebar />
       <main className="min-w-0 flex-1 overflow-x-hidden">
         <Outlet />

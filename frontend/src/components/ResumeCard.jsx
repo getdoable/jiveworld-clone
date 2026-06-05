@@ -58,20 +58,20 @@ function ResetModal({ open, title, onCancel, onConfirm }) {
       role="presentation"
     >
       <div
-        className="animate-modal-pop w-full max-w-md rounded-3xl bg-white p-8 shadow-xl"
+        className="animate-modal-pop w-full max-w-md rounded-3xl bg-white dark:bg-gray-900 p-8 shadow-xl"
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
         aria-label={`Reset ${title}`}
       >
-        <h2 className="text-2xl font-bold text-jw-ink">Reset “{title}”</h2>
-        <p className="mt-2 text-gray-500">Choose what you’d like to reset.</p>
+        <h2 className="text-2xl font-bold text-jw-ink dark:text-gray-100">Reset “{title}”</h2>
+        <p className="mt-2 text-gray-500 dark:text-gray-400">Choose what you’d like to reset.</p>
 
         <div className="mt-6 flex flex-col gap-2">
           {RESET_ITEMS.map((it) => (
             <label
               key={it.key}
-              className="flex cursor-pointer items-start gap-3 rounded-xl border border-gray-200 px-4 py-3 hover:bg-gray-50"
+              className="flex cursor-pointer items-start gap-3 rounded-xl border border-gray-200 dark:border-gray-800 px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-800"
             >
               <input
                 type="checkbox"
@@ -80,8 +80,8 @@ function ResetModal({ open, title, onCancel, onConfirm }) {
                 className="mt-1 h-5 w-5 accent-jw-blue"
               />
               <span>
-                <span className="block text-lg font-semibold text-jw-ink">{it.label}</span>
-                <span className="block text-sm text-gray-500">{it.hint}</span>
+                <span className="block text-lg font-semibold text-jw-ink dark:text-gray-100">{it.label}</span>
+                <span className="block text-sm text-gray-500 dark:text-gray-400">{it.hint}</span>
               </span>
             </label>
           ))}
@@ -98,7 +98,7 @@ function ResetModal({ open, title, onCancel, onConfirm }) {
         <button
           type="button"
           onClick={onCancel}
-          className="mt-3 w-full rounded-xl bg-gray-100 px-4 py-4 text-lg font-semibold text-gray-600 hover:bg-gray-200"
+          className="mt-3 w-full rounded-xl bg-gray-100 dark:bg-gray-800 px-4 py-4 text-lg font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
         >
           Cancel
         </button>
@@ -153,8 +153,8 @@ export default function ResumeCard({ resume }) {
 
   if (exited) {
     return (
-      <div className="mt-5 flex items-center justify-between rounded-2xl bg-gray-50 px-5 py-6">
-        <span className="text-lg text-gray-500">You’ve exited review for now.</span>
+      <div className="mt-5 flex items-center justify-between rounded-2xl bg-gray-50 dark:bg-gray-800 px-5 py-6">
+        <span className="text-lg text-gray-500 dark:text-gray-400">You’ve exited review for now.</span>
         <button
           type="button"
           onClick={() => setExited(false)}
@@ -179,18 +179,18 @@ export default function ResumeCard({ resume }) {
           <div>
             <Link
               to={`${BASE}/stories/${resume.slug}`}
-              className="flex items-center gap-2 text-xl font-bold text-jw-ink hover:underline"
+              className="flex items-center gap-2 text-xl font-bold text-jw-ink dark:text-gray-100 hover:underline"
             >
               <span
                 className={`grid h-6 w-6 place-items-center rounded-full text-sm text-white ${
-                  allChaptersListened ? 'bg-jw-blue' : 'bg-gray-300'
+                  allChaptersListened ? 'bg-jw-blue' : 'bg-gray-300 dark:bg-gray-600'
                 }`}
               >
                 ✓
               </span>
               {resume.title}
             </Link>
-            <div className="mt-1 flex items-center gap-4 text-sm font-semibold text-gray-500">
+            <div className="mt-1 flex items-center gap-4 text-sm font-semibold text-gray-500 dark:text-gray-400">
               <span>{resume.duration}</span>
               <span className="flex items-center gap-1 text-jw-orange">
                 ▁▄▇ {progress.chaptersListened}/{totalChapters}
@@ -209,8 +209,8 @@ export default function ResumeCard({ resume }) {
             <button
               type="button"
               onClick={() => setMenuOpen((o) => !o)}
-              className={`grid h-9 w-9 place-items-center rounded-full text-2xl leading-none text-gray-400 hover:bg-gray-100 hover:text-gray-600 ${
-                menuOpen ? 'bg-gray-100 text-gray-600' : ''
+              className={`grid h-9 w-9 place-items-center rounded-full text-2xl leading-none text-gray-400 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-600 dark:hover:text-gray-200 ${
+                menuOpen ? 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300' : ''
               }`}
               aria-label="Story options"
               aria-haspopup="menu"
@@ -222,7 +222,7 @@ export default function ResumeCard({ resume }) {
             {menuOpen && (
               <div
                 role="menu"
-                className="animate-modal-pop absolute right-0 z-30 mt-2 w-56 overflow-hidden rounded-2xl bg-white py-2 shadow-xl ring-1 ring-black/5"
+                className="animate-modal-pop absolute right-0 z-30 mt-2 w-56 overflow-hidden rounded-2xl bg-white dark:bg-gray-900 py-2 shadow-xl ring-1 ring-black/5"
               >
                 <button
                   type="button"
@@ -231,11 +231,11 @@ export default function ResumeCard({ resume }) {
                     setMenuOpen(false);
                     setResetOpen(true);
                   }}
-                  className="block w-full px-5 py-3 text-left text-lg text-jw-ink hover:bg-gray-50"
+                  className="block w-full px-5 py-3 text-left text-lg text-jw-ink dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800"
                 >
                   Reset story…
                 </button>
-                <div className="mx-5 my-1 border-t border-gray-100" />
+                <div className="mx-5 my-1 border-t border-gray-100 dark:border-gray-800" />
                 <button
                   type="button"
                   role="menuitem"
@@ -243,7 +243,7 @@ export default function ResumeCard({ resume }) {
                     setMenuOpen(false);
                     setExited(true);
                   }}
-                  className="block w-full px-5 py-3 text-left text-lg text-jw-ink hover:bg-gray-50"
+                  className="block w-full px-5 py-3 text-left text-lg text-jw-ink dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800"
                 >
                   Exit review
                 </button>
@@ -254,11 +254,11 @@ export default function ResumeCard({ resume }) {
 
         <Link
           to={`${BASE}/stories/${resume.slug}`}
-          className="mt-4 flex items-center justify-between rounded-2xl bg-gray-100 px-5 py-4 hover:bg-gray-200"
+          className="mt-4 flex items-center justify-between rounded-2xl bg-gray-100 dark:bg-gray-800 px-5 py-4 hover:bg-gray-200 dark:hover:bg-gray-700"
         >
           <span>
-            <span className="block text-sm text-gray-500">Chapter 1</span>
-            <span className="block text-lg font-bold text-jw-ink">
+            <span className="block text-sm text-gray-500 dark:text-gray-400">Chapter 1</span>
+            <span className="block text-lg font-bold text-jw-ink dark:text-gray-100">
               {resume.chapters[0].title}
             </span>
           </span>

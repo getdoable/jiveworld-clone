@@ -16,7 +16,7 @@ function EditButton({ onClick, label = 'Edit' }) {
     <button
       type="button"
       onClick={onClick}
-      className="shrink-0 rounded-full bg-gray-100 px-5 py-2 text-sm font-semibold text-gray-600 hover:bg-gray-200"
+      className="shrink-0 rounded-full bg-gray-100 dark:bg-gray-800 px-5 py-2 text-sm font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
     >
       {label}
     </button>
@@ -26,18 +26,18 @@ function EditButton({ onClick, label = 'Edit' }) {
 // A My-details row that flips between a read view and an inline editor.
 function EditableRow({ label, value, editing, onEdit, onCancel, children }) {
   return (
-    <div className="border-b border-gray-100 py-4">
+    <div className="border-b border-gray-100 dark:border-gray-800 py-4">
       <div className="flex items-center justify-between gap-4">
         <div className="min-w-0 flex-1">
-          <div className="text-sm font-semibold text-gray-400">{label}</div>
-          {!editing && <div className="mt-1 text-lg text-jw-ink">{value}</div>}
+          <div className="text-sm font-semibold text-gray-400 dark:text-gray-400">{label}</div>
+          {!editing && <div className="mt-1 text-lg text-jw-ink dark:text-gray-100">{value}</div>}
         </div>
         {!editing && <EditButton onClick={onEdit} />}
         {editing && (
           <button
             type="button"
             onClick={onCancel}
-            className="shrink-0 rounded-full bg-gray-100 px-5 py-2 text-sm font-semibold text-gray-600 hover:bg-gray-200"
+            className="shrink-0 rounded-full bg-gray-100 dark:bg-gray-800 px-5 py-2 text-sm font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
           >
             Cancel
           </button>
@@ -50,15 +50,15 @@ function EditableRow({ label, value, editing, onEdit, onCancel, children }) {
 
 function Field({ label, value }) {
   return (
-    <div className="border-b border-gray-100 py-4">
-      <div className="text-sm font-semibold text-gray-400">{label}</div>
-      <div className="mt-1 text-lg text-jw-ink">{value}</div>
+    <div className="border-b border-gray-100 dark:border-gray-800 py-4">
+      <div className="text-sm font-semibold text-gray-400 dark:text-gray-400">{label}</div>
+      <div className="mt-1 text-lg text-jw-ink dark:text-gray-100">{value}</div>
     </div>
   );
 }
 
 const inputClass =
-  'w-full rounded-xl border border-gray-300 px-4 py-2.5 text-lg text-jw-ink focus:border-jw-blue focus:outline-none';
+  'w-full rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-2.5 text-lg text-jw-ink dark:text-gray-100 focus:border-jw-blue focus:outline-none';
 const saveClass =
   'rounded-full bg-jw-blue px-5 py-2 text-sm font-semibold text-white hover:opacity-90 disabled:opacity-50';
 
@@ -152,7 +152,7 @@ export default function Account() {
     return (
       <div className="mx-auto max-w-2xl px-10 py-10">
         <PageMarker state="account" />
-        <h1 className="text-4xl font-extrabold text-jw-ink">My account</h1>
+        <h1 className="text-4xl font-extrabold text-jw-ink dark:text-gray-100">My account</h1>
         <p className="mt-6 text-red-500">Couldn’t load your account: {loadError}</p>
       </div>
     );
@@ -162,8 +162,8 @@ export default function Account() {
     return (
       <div className="mx-auto max-w-2xl px-10 py-10">
         <PageMarker state="account" />
-        <h1 className="text-4xl font-extrabold text-jw-ink">My account</h1>
-        <p className="mt-6 text-gray-500">Loading…</p>
+        <h1 className="text-4xl font-extrabold text-jw-ink dark:text-gray-100">My account</h1>
+        <p className="mt-6 text-gray-500 dark:text-gray-400">Loading…</p>
       </div>
     );
   }
@@ -178,11 +178,11 @@ export default function Account() {
 
       {/* Title + sign out */}
       <header className="flex items-center justify-between">
-        <h1 className="text-4xl font-extrabold text-jw-ink">My account</h1>
+        <h1 className="text-4xl font-extrabold text-jw-ink dark:text-gray-100">My account</h1>
         <button
           type="button"
           onClick={handleLogout}
-          className="flex items-center gap-2 rounded-full bg-gray-100 px-4 py-2 text-base font-semibold text-gray-600 hover:bg-gray-200"
+          className="flex items-center gap-2 rounded-full bg-gray-100 dark:bg-gray-800 px-4 py-2 text-base font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
         >
           <span aria-hidden="true">⏏️</span>
           Sign out
@@ -191,7 +191,7 @@ export default function Account() {
 
       {/* My details */}
       <section className="mt-10">
-        <h2 className="text-2xl font-bold text-jw-ink">My details</h2>
+        <h2 className="text-2xl font-bold text-jw-ink dark:text-gray-100">My details</h2>
         <div className="mt-3">
           <EditableRow
             label="First name"
@@ -272,25 +272,25 @@ export default function Account() {
 
       {/* My membership */}
       <section className="mt-12">
-        <h2 className="text-2xl font-bold text-jw-ink">My membership</h2>
-        <div className="mt-3 h-1.5 rounded-full bg-gray-100" />
+        <h2 className="text-2xl font-bold text-jw-ink dark:text-gray-100">My membership</h2>
+        <div className="mt-3 h-1.5 rounded-full bg-gray-100 dark:bg-gray-800" />
         <div className="mt-1">
           <Field label={null} value={<span className="font-bold">{m.plan}</span>} />
           <Field label="Membership type" value={m.type} />
           {canceled ? (
             <Field
               label="Access ends"
-              value={<span className="text-jw-ink">{m.endsOn}</span>}
+              value={<span className="text-jw-ink dark:text-gray-100">{m.endsOn}</span>}
             />
           ) : (
             <Field label="Renews" value={m.renews} />
           )}
           <Field label="Renewal amount" value={m.amount} />
 
-          <div className="flex items-center justify-between gap-4 border-b border-gray-100 py-4">
+          <div className="flex items-center justify-between gap-4 border-b border-gray-100 dark:border-gray-800 py-4">
             <div className="min-w-0">
-              <div className="text-sm font-semibold text-gray-400">Payment method</div>
-              <div className="mt-1 text-lg text-jw-ink">
+              <div className="text-sm font-semibold text-gray-400 dark:text-gray-400">Payment method</div>
+              <div className="mt-1 text-lg text-jw-ink dark:text-gray-100">
                 {card.brand} ending {card.last4} · exp {card.exp}
               </div>
             </div>
@@ -298,7 +298,7 @@ export default function Account() {
           </div>
         </div>
 
-        <div className="border-b border-gray-100 py-5 text-center">
+        <div className="border-b border-gray-100 dark:border-gray-800 py-5 text-center">
           {canceled ? (
             <button
               type="button"
@@ -361,7 +361,7 @@ function ModalShell({ label, onClose, children }) {
       role="presentation"
     >
       <div
-        className="animate-modal-pop w-full max-w-md rounded-3xl bg-white p-8 shadow-xl"
+        className="animate-modal-pop w-full max-w-md rounded-3xl bg-white dark:bg-gray-900 p-8 shadow-xl"
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
@@ -394,15 +394,15 @@ function PaymentModal({ card, onClose, onSaved }) {
 
   return (
     <ModalShell label="Payment method" onClose={onClose}>
-      <h2 className="text-2xl font-bold text-jw-ink">Payment method</h2>
-      <p className="mt-2 text-gray-500">Update the card on file.</p>
+      <h2 className="text-2xl font-bold text-jw-ink dark:text-gray-100">Payment method</h2>
+      <p className="mt-2 text-gray-500 dark:text-gray-400">Update the card on file.</p>
 
       <div className="mt-6 flex flex-col gap-3">
-        <label className="text-sm font-semibold text-gray-500">
+        <label className="text-sm font-semibold text-gray-500 dark:text-gray-400">
           Card brand
           <input className={`mt-1 ${inputClass}`} value={brand} onChange={(e) => setBrand(e.target.value)} />
         </label>
-        <label className="text-sm font-semibold text-gray-500">
+        <label className="text-sm font-semibold text-gray-500 dark:text-gray-400">
           Last 4 digits
           <input
             className={`mt-1 ${inputClass}`}
@@ -412,7 +412,7 @@ function PaymentModal({ card, onClose, onSaved }) {
             onChange={(e) => setLast4(e.target.value.replace(/\D/g, ''))}
           />
         </label>
-        <label className="text-sm font-semibold text-gray-500">
+        <label className="text-sm font-semibold text-gray-500 dark:text-gray-400">
           Expiry (MM/YY)
           <input
             className={`mt-1 ${inputClass}`}
@@ -431,7 +431,7 @@ function PaymentModal({ card, onClose, onSaved }) {
       <button
         type="button"
         onClick={onClose}
-        className="mt-3 w-full rounded-xl bg-gray-100 px-4 py-4 text-lg font-semibold text-gray-600 hover:bg-gray-200"
+        className="mt-3 w-full rounded-xl bg-gray-100 dark:bg-gray-800 px-4 py-4 text-lg font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
       >
         Cancel
       </button>
@@ -442,9 +442,9 @@ function PaymentModal({ card, onClose, onSaved }) {
 function ConfirmCancelModal({ endsOn, saving, onDismiss, onConfirm }) {
   return (
     <ModalShell label="Cancel subscription" onClose={onDismiss}>
-      <h2 className="text-2xl font-bold text-jw-ink">Cancel subscription?</h2>
-      <p className="mt-3 text-lg leading-relaxed text-gray-600">
-        You’ll keep full access until <span className="font-semibold text-jw-ink">{endsOn}</span>,
+      <h2 className="text-2xl font-bold text-jw-ink dark:text-gray-100">Cancel subscription?</h2>
+      <p className="mt-3 text-lg leading-relaxed text-gray-600 dark:text-gray-300">
+        You’ll keep full access until <span className="font-semibold text-jw-ink dark:text-gray-100">{endsOn}</span>,
         after which your membership won’t renew.
       </p>
 
@@ -459,7 +459,7 @@ function ConfirmCancelModal({ endsOn, saving, onDismiss, onConfirm }) {
       <button
         type="button"
         onClick={onDismiss}
-        className="mt-3 w-full rounded-xl bg-gray-100 px-4 py-4 text-lg font-semibold text-gray-600 hover:bg-gray-200"
+        className="mt-3 w-full rounded-xl bg-gray-100 dark:bg-gray-800 px-4 py-4 text-lg font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
       >
         Keep my subscription
       </button>
