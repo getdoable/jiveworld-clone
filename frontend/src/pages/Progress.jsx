@@ -1,5 +1,8 @@
+import { useEffect, useState } from 'react';
 import PageMarker from '../components/PageMarker.jsx';
 import StoryCard from '../components/StoryCard.jsx';
+import StreakCalendar from '../components/StreakCalendar.jsx';
+import { fetchActivity } from '../lib/api.js';
 import { STORIES } from '../data/stories.js';
 
 // Static, deterministic weekly bar data (heights in %).
@@ -20,6 +23,20 @@ function StatTile({ value, label, bg }) {
 }
 
 export default function Progress() {
+  const [activity, setActivity] = useState({ streak: 0, activeDays: [] });
+
+  useEffect(() => {
+    let cancelled = false;
+    fetchActivity()
+      .then((data) => {
+        if (!cancelled) setActivity(data);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   return (
     <div className="mx-auto max-w-5xl px-10 py-10">
       <PageMarker state="progress" />
@@ -58,27 +75,10 @@ export default function Progress() {
           </div>
         </div>
 
-        <div className="rounded-2xl bg-gray-50 p-6">
-          <div className="text-sm font-semibold text-jw-ink">Current streak</div>
-          <div className="mt-1 flex items-center gap-1 text-2xl font-bold text-jw-ink">
-            <span className="text-jw-orange">🔥</span>0
-          </div>
-          <div className="mt-4 grid grid-cols-7 gap-1 text-center text-sm text-gray-500">
-            {['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((d, i) => (
-              <div key={i} className="font-semibold text-gray-400">
-                {d}
-              </div>
-            ))}
-            {Array.from({ length: 30 }, (_, i) => i + 1).map((d) => (
-              <div
-                key={d}
-                className={`rounded-full py-1 ${d === 4 ? 'border border-jw-orange' : ''}`}
-              >
-                {d}
-              </div>
-            ))}
-          </div>
-        </div>
+        <StreakCalendar
+          streak={activity.streak}
+          activeDays={new Set(activity.activeDays)}
+        />
       </div>
 
       {/* Headline stat tiles */}

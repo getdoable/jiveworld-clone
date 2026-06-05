@@ -68,13 +68,16 @@ export default function Home() {
       <header className="flex items-center justify-between">
         <h1 className="text-4xl font-extrabold text-jw-ink">Hola, {user.name}</h1>
         <div className="flex items-center gap-6">
-          <span className="flex items-center gap-2 text-2xl font-bold text-jw-ink">
-            <span className="text-jw-orange">🔥</span>
-            {STREAK}
-          </span>
           <Link
             to={`${BASE}/progress`}
-            className="flex items-center gap-2 text-2xl font-bold text-jw-ink hover:underline"
+            className="flex items-center gap-2 text-2xl font-bold text-jw-ink no-underline"
+          >
+            <span className="text-jw-orange">🔥</span>
+            {STREAK}
+          </Link>
+          <Link
+            to={`${BASE}/progress`}
+            className="flex items-center gap-2 text-2xl font-bold text-jw-ink no-underline"
           >
             <span className="text-jw-gold">★</span>
             {POINTS}

@@ -67,6 +67,46 @@ app.get('/api/me', (req, res) => {
   return res.status(401).json({ error: 'Unauthorized' });
 });
 
+// --- Study activity --------------------------------------------------------
+// Returns the dates the user studied (local YYYY-MM-DD) plus the current
+// streak. Dates are stored as day-offsets from "today" so the calendar stays
+// live as the days roll over. Offset 0 = today.
+const ACTIVITY_OFFSETS = [0, 2, 3, 9, 13, 40, 41, 70];
+
+function dayKey(d) {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(
+    d.getDate()
+  ).padStart(2, '0')}`;
+}
+
+app.get('/api/activity', (req, res) => {
+  const auth = req.headers.authorization || '';
+  const token = auth.startsWith('Bearer ') ? auth.slice(7) : '';
+  if (token !== FAKE_JWT) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const activeDays = ACTIVITY_OFFSETS.map((off) => {
+    const d = new Date(today);
+    d.setDate(d.getDate() - off);
+    return dayKey(d);
+  });
+
+  // Current streak: consecutive active days ending today.
+  const set = new Set(activeDays);
+  let streak = 0;
+  const cursor = new Date(today);
+  while (set.has(dayKey(cursor))) {
+    streak += 1;
+    cursor.setDate(cursor.getDate() - 1);
+  }
+
+  return res.status(200).json({ streak, activeDays });
+});
+
 // --- Placeholder audio -----------------------------------------------------
 // Any /media/<slug>.mp3 request returns a tiny valid-ish MP3 payload with the
 // correct content type. The crawler only cares about a 200 + audio/mpeg.
