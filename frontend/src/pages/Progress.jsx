@@ -83,7 +83,7 @@ export default function Progress() {
 
       {/* Headline stat tiles */}
       <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-3">
-        <StatTile value="22" label="Total points" bg="bg-yellow-50" />
+        <StatTile value={String(completed.length)} label="Total points" bg="bg-yellow-50" />
         <StatTile value="1 day" label="Longest streak" bg="bg-orange-50" />
         <StatTile value="2" label="Days with study" bg="bg-sky-50" />
       </div>

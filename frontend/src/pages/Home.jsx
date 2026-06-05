@@ -6,14 +6,15 @@ import { STORIES, SOUNDBITES } from '../data/stories.js';
 
 const BASE = '/es-en/app/learn';
 
-// Headline counters shown next to the greeting.
-const STREAK = 1;
-const POINTS = 23;
-
 // Derived progress counts from the story data.
 const inProgress = STORIES.filter((s) => s.primary === 'inProgress');
 const completed = STORIES.filter((s) => s.primary === 'completed');
 const studyLater = STORIES.filter((s) => s.primary === 'studyLater');
+
+// Headline counters shown next to the greeting.
+// Stars = number of stories the user has finished.
+const STREAK = 1;
+const POINTS = completed.length;
 
 // The story to resume — first one still in progress.
 const resume = inProgress[0] || STORIES[0];
