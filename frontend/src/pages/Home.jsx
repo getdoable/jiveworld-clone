@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import PageMarker from '../components/PageMarker.jsx';
-import StoryThumb from '../components/StoryThumb.jsx';
+import ResumeCard from '../components/ResumeCard.jsx';
 import { getUser } from '../lib/auth.js';
-import { STORIES, SOUNDBITES } from '../data/stories.js';
+import { STORIES } from '../data/stories.js';
 
 const BASE = '/es-en/app/learn';
 
@@ -98,58 +98,7 @@ export default function Home() {
           </Link>
         </div>
 
-        <div className="mt-5 flex items-start gap-5">
-          <Link to={`${BASE}/stories/${resume.slug}`} className="shrink-0">
-            <StoryThumb story={resume} size="lg" />
-          </Link>
-
-          <div className="min-w-0 flex-1">
-            <div className="flex items-start justify-between">
-              <div>
-                <Link
-                  to={`${BASE}/stories/${resume.slug}`}
-                  className="flex items-center gap-2 text-xl font-bold text-jw-ink hover:underline"
-                >
-                  <span className="grid h-6 w-6 place-items-center rounded-full bg-gray-300 text-sm text-white">
-                    ✓
-                  </span>
-                  {resume.title}
-                </Link>
-                <div className="mt-1 flex items-center gap-4 text-sm font-semibold text-gray-500">
-                  <span>{resume.duration}</span>
-                  <span className="flex items-center gap-1 text-jw-orange">
-                    ▁▄▇ {resume.chapters.length}
-                  </span>
-                  <span className="flex items-center gap-1 text-jw-purple">
-                    ▦ {resume.soundbitesDone}/{SOUNDBITES.length}
-                  </span>
-                </div>
-              </div>
-              <button
-                type="button"
-                className="px-2 text-2xl leading-none text-gray-400 hover:text-gray-600"
-                aria-label="Story options"
-              >
-                ⋯
-              </button>
-            </div>
-
-            <Link
-              to={`${BASE}/stories/${resume.slug}`}
-              className="mt-4 flex items-center justify-between rounded-2xl bg-gray-100 px-5 py-4 hover:bg-gray-200"
-            >
-              <span>
-                <span className="block text-sm text-gray-500">Chapter 1</span>
-                <span className="block text-lg font-bold text-jw-ink">
-                  {resume.chapters[0].title}
-                </span>
-              </span>
-              <span className="grid h-11 w-11 place-items-center rounded-full bg-jw-ink text-lg text-white">
-                🎧
-              </span>
-            </Link>
-          </div>
-        </div>
+        <ResumeCard resume={resume} />
       </section>
 
       {/* Two-column: progress list + weekly chart */}
