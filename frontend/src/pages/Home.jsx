@@ -33,10 +33,13 @@ export default function Home() {
 
       <header className="flex items-center justify-between">
         <h1 className="text-4xl font-extrabold text-jw-ink">Hola, {user.name}</h1>
-        <div className="flex items-center gap-2 text-2xl font-bold text-jw-ink">
+        <Link
+          to={`${BASE}/progress`}
+          className="flex items-center gap-2 text-2xl font-bold text-jw-ink hover:underline"
+        >
           <span className="text-jw-gold">★</span>
           <span>22</span>
-        </div>
+        </Link>
       </header>
 
       <Section
