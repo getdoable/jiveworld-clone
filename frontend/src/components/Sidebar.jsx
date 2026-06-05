@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Logo from './Logo.jsx';
 import AboutModal from './AboutModal.jsx';
 import SettingsModal from './SettingsModal.jsx';
+import RedeemCodeModal from './RedeemCodeModal.jsx';
 import { getUser, logout } from '../lib/auth.js';
 
 const BASE = '/es-en/app/learn';
@@ -40,6 +41,7 @@ export default function Sidebar() {
   const path = location.pathname;
   const [aboutOpen, setAboutOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [redeemOpen, setRedeemOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [user, setUser] = useState(getUser);
   const menuRef = useRef(null);
@@ -86,11 +88,12 @@ export default function Sidebar() {
     else if (key === 'reload') window.location.reload();
     else if (key === 'account') navigate(`${BASE}/account`);
     else if (key === 'settings') setSettingsOpen(true);
-    // redeem / support / share have no destination yet.
+    else if (key === 'redeem') setRedeemOpen(true);
+    // support / share have no destination yet.
   }
 
   return (
-    <aside className="flex w-64 shrink-0 flex-col border-r border-gray-100 bg-white px-4 py-6 dark:border-gray-800 dark:bg-gray-900">
+    <aside className="sticky top-0 flex h-screen w-64 shrink-0 flex-col self-start border-r border-gray-100 bg-white px-4 py-6 dark:border-gray-800 dark:bg-gray-900">
       <div className="px-3">
         <button
           type="button"
@@ -103,14 +106,15 @@ export default function Sidebar() {
 
       <AboutModal open={aboutOpen} onClose={() => setAboutOpen(false)} />
       <SettingsModal open={settingsOpen} onClose={() => setSettingsOpen(false)} />
+      <RedeemCodeModal open={redeemOpen} onClose={() => setRedeemOpen(false)} />
 
-      <nav className="mt-8 flex flex-col gap-1">
+      <nav className="mt-8 flex min-h-0 flex-1 flex-col gap-1 overflow-y-auto">
         <NavItem to={`${BASE}/home`} label="Home" icon="🏠" active={isHome} />
         <NavItem to={`${BASE}/stories`} label="Stories" icon="☰" active={isStories} />
         <NavItem to={`${BASE}/progress`} label="My stats" icon="★" active={isStats} />
       </nav>
 
-      <div className="relative mt-auto border-t border-gray-100 pt-4 dark:border-gray-800" ref={menuRef}>
+      <div className="relative shrink-0 border-t border-gray-100 pt-4 dark:border-gray-800" ref={menuRef}>
         {menuOpen && (
           <div
             role="menu"
