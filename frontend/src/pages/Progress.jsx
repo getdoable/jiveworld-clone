@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import PageMarker from '../components/PageMarker.jsx';
 import StoryCard from '../components/StoryCard.jsx';
 import StreakCalendar from '../components/StreakCalendar.jsx';
 import { fetchActivity } from '../lib/api.js';
 import { STORIES } from '../data/stories.js';
+
+const BASE = '/es-en/app/learn';
 
 // Static, deterministic weekly bar data (heights in %).
 const LAST_WEEK_BARS = [0, 70, 0, 100, 0, 0, 0];
@@ -11,15 +14,28 @@ const DAY_LABELS = ['F', 'S', 'S', 'M', 'T', 'W', 'T'];
 
 const completed = STORIES.filter((s) => s.primary === 'completed');
 
-function StatTile({ value, label, bg }) {
-  return (
-    <div className={`rounded-2xl ${bg} p-6 text-center`}>
+function StatTile({ value, label, bg, to }) {
+  const inner = (
+    <>
       <div className="text-3xl font-extrabold text-jw-ink">{value}</div>
       <div className="mt-1 text-sm font-semibold uppercase tracking-wide text-gray-500">
         {label}
       </div>
-    </div>
+    </>
   );
+
+  if (to) {
+    return (
+      <Link
+        to={to}
+        className={`block rounded-2xl ${bg} p-6 text-center no-underline transition hover:brightness-95`}
+      >
+        {inner}
+      </Link>
+    );
+  }
+
+  return <div className={`rounded-2xl ${bg} p-6 text-center`}>{inner}</div>;
 }
 
 export default function Progress() {
@@ -91,7 +107,12 @@ export default function Progress() {
       {/* Detailed stat grid */}
       <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-3">
         <StatTile value="0m" label="Listened" bg="bg-sky-50" />
-        <StatTile value="3" label="Stories completed" bg="bg-sky-50" />
+        <StatTile
+          value="3"
+          label="Stories completed"
+          bg="bg-sky-50"
+          to={`${BASE}/stories?primary=completed`}
+        />
         <StatTile value="35" label="Chapters completed" bg="bg-sky-50" />
         <StatTile value="0" label="Vocab learned" bg="bg-green-50" />
         <StatTile value="0" label="Vocab to review" bg="bg-purple-50" />
