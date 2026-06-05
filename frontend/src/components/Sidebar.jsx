@@ -89,7 +89,8 @@ export default function Sidebar() {
     else if (key === 'account') navigate(`${BASE}/account`);
     else if (key === 'settings') setSettingsOpen(true);
     else if (key === 'redeem') setRedeemOpen(true);
-    // support / share have no destination yet.
+    else if (key === 'support') navigate(`${BASE}/support`);
+    // share has no destination yet.
   }
 
   return (

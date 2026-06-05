@@ -209,6 +209,18 @@
       ]
     },
     {
+      "url": "/es-en/app/learn/support",
+      "status": 200,
+      "pageState": "support",
+      "requiresAuth": true,
+      "links": [],
+      "uiElements": [
+        "Heading 'Support and feedback'",
+        "'Need help?' card with Help Center / Get in touch / your account links (dummy)",
+        "'Got feedback?' card with 'Give feedback on Jiveworld' button (dummy)"
+      ]
+    },
+    {
       "url": "/es-en/app/learn/stories/perdido-en-san-jose",
       "status": 200,
       "pageState": "story:perdido-en-san-jose",
