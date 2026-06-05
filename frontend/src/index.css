@@ -14,3 +14,31 @@ body {
   color: #1f2933;
   -webkit-font-smoothing: antialiased;
 }
+
+@keyframes modal-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes backdrop-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-modal-pop {
+  animation: modal-pop 0.22s ease-out;
+}
+
+.animate-backdrop-fade {
+  animation: backdrop-fade 0.22s ease-out;
+}

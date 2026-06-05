@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Logo from './Logo.jsx';
+import AboutModal from './AboutModal.jsx';
 import { getUser, logout } from '../lib/auth.js';
 
 const BASE = '/es-en/app/learn';
@@ -25,6 +27,7 @@ export default function Sidebar() {
   const navigate = useNavigate();
   const user = getUser();
   const path = location.pathname;
+  const [aboutOpen, setAboutOpen] = useState(false);
 
   const isHome = path.startsWith(`${BASE}/home`);
   const isStories =
@@ -39,10 +42,16 @@ export default function Sidebar() {
   return (
     <aside className="flex w-64 shrink-0 flex-col border-r border-gray-100 bg-white px-4 py-6">
       <div className="px-3">
-        <Link to={`${BASE}/home`} aria-label="Jiveworld home">
+        <button
+          type="button"
+          onClick={() => setAboutOpen(true)}
+          aria-label="About Jiveworld Español"
+        >
           <Logo />
-        </Link>
+        </button>
       </div>
+
+      <AboutModal open={aboutOpen} onClose={() => setAboutOpen(false)} />
 
       <nav className="mt-8 flex flex-col gap-1">
         <NavItem to={`${BASE}/home`} label="Home" icon="🏠" active={isHome} />
