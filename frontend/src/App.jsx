@@ -15,12 +15,14 @@ export default function App() {
     <Routes>
       <Route path="/login" element={<Login />} />
 
-      {/* All /es-en/app/learn/* routes are guarded inside AppLayout. */}
+      {/* Story detail is a full-screen takeover (no sidebar); it guards auth itself. */}
+      <Route path="/es-en/app/learn/stories/:slug" element={<StoryDetail />} />
+
+      {/* All other /es-en/app/learn/* routes are guarded inside AppLayout. */}
       <Route path="/es-en/app/learn" element={<AppLayout />}>
         <Route index element={<Navigate to="home" replace />} />
         <Route path="home" element={<Home />} />
         <Route path="stories" element={<Stories />} />
-        <Route path="stories/:slug" element={<StoryDetail />} />
         <Route path="collections" element={<Collections />} />
         <Route path="collections/:slug" element={<CollectionDetail />} />
         <Route path="progress" element={<Progress />} />

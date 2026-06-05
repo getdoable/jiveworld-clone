@@ -226,22 +226,17 @@
       "pageState": "story:perdido-en-san-jose",
       "requiresAuth": true,
       "links": [
-        "/es-en/app/learn/stories",
-        "/es-en/app/learn/collections/ciudad",
-        "/es-en/app/learn/stories/boom-colapso",
-        "/es-en/app/learn/stories/luna-llena"
+        "/es-en/app/learn/stories"
       ],
       "uiElements": [
         "Title 'Perdido en San José'",
-        "Author 'Radio Ambulante'",
-        "Tags, duration '15m'",
-        "Chapter list (4 chapters with status)",
-        "Buttons: Begin story, Relisten, Reset, Manage list, Give feedback on this story",
-        "'Soundbites & Games' with '0/7 Soundbites' and '0/9 Games'",
-        "'My story progress' sidebar panel",
-        "'Collection' section linking to /collections/ciudad",
-        "'Related stories' (2 cards)",
-        "<audio src='/media/perdido-en-san-jose.mp3'>"
+        "Hero: title with ✓ badge, author + 'Downloaded', duration + chapter count, 'N Soundbites' pill",
+        "Blurb, description, tags, 'Credits and resources' toggle",
+        "Compact top bar appears on scroll (back, title, options)",
+        "'Vocab review (N)' pill and star points",
+        "Chapter list (status check, CHAPTER n, title, activity icon)",
+        "'Give feedback on this story'",
+        "'My story progress': Relisten, Reset, 'Complete %', 'Listened', Vocabulary (To review / Learned), Soundbites & Games cards"
       ]
     },
     {
@@ -250,16 +245,17 @@
       "pageState": "story:boom-colapso",
       "requiresAuth": true,
       "links": [
-        "/es-en/app/learn/stories",
-        "/es-en/app/learn/stories/luna-llena",
-        "/es-en/app/learn/stories/sentencia"
+        "/es-en/app/learn/stories"
       ],
       "uiElements": [
         "Title 'Boom/Colapso'",
-        "Chapter list (4 chapters, all Done)",
-        "'0/7 Soundbites', '0/9 Games'",
-        "Related stories (2 cards)",
-        "<audio src='/media/boom-colapso.mp3'>"
+        "Hero: title with ✓ badge, author + 'Downloaded', duration + chapter count, 'N Soundbites' pill",
+        "Blurb, description, tags, 'Credits and resources' toggle",
+        "Compact top bar appears on scroll (back, title, options)",
+        "'Vocab review (N)' pill and star points",
+        "Chapter list (status check, CHAPTER n, title, activity icon)",
+        "'Give feedback on this story'",
+        "'My story progress': Relisten, Reset, 'Complete %', 'Listened', Vocabulary (To review / Learned), Soundbites & Games cards"
       ]
     },
     {
@@ -268,15 +264,17 @@
       "pageState": "story:luna-llena",
       "requiresAuth": true,
       "links": [
-        "/es-en/app/learn/stories",
-        "/es-en/app/learn/stories/sentencia",
-        "/es-en/app/learn/stories/en-busca-de-las-palabras"
+        "/es-en/app/learn/stories"
       ],
       "uiElements": [
         "Title 'Luna llena sobre Chiapas'",
-        "Chapter list (4 chapters)",
-        "'0/7 Soundbites', '0/9 Games'",
-        "<audio src='/media/luna-llena.mp3'>"
+        "Hero: title with ✓ badge, author + 'Downloaded', duration + chapter count, 'N Soundbites' pill",
+        "Blurb, description, tags, 'Credits and resources' toggle",
+        "Compact top bar appears on scroll (back, title, options)",
+        "'Vocab review (N)' pill and star points",
+        "Chapter list (status check, CHAPTER n, title, activity icon)",
+        "'Give feedback on this story'",
+        "'My story progress': Relisten, Reset, 'Complete %', 'Listened', Vocabulary (To review / Learned), Soundbites & Games cards"
       ]
     },
     {
@@ -285,15 +283,17 @@
       "pageState": "story:sentencia",
       "requiresAuth": true,
       "links": [
-        "/es-en/app/learn/stories",
-        "/es-en/app/learn/stories/en-busca-de-las-palabras",
-        "/es-en/app/learn/stories/miedo"
+        "/es-en/app/learn/stories"
       ],
       "uiElements": [
         "Title 'La sentencia'",
-        "Chapter list (4 chapters)",
-        "'0/7 Soundbites', '0/9 Games'",
-        "<audio src='/media/sentencia.mp3'>"
+        "Hero: title with ✓ badge, author + 'Downloaded', duration + chapter count, 'N Soundbites' pill",
+        "Blurb, description, tags, 'Credits and resources' toggle",
+        "Compact top bar appears on scroll (back, title, options)",
+        "'Vocab review (N)' pill and star points",
+        "Chapter list (status check, CHAPTER n, title, activity icon)",
+        "'Give feedback on this story'",
+        "'My story progress': Relisten, Reset, 'Complete %', 'Listened', Vocabulary (To review / Learned), Soundbites & Games cards"
       ]
     },
     {
@@ -302,15 +302,17 @@
       "pageState": "story:en-busca-de-las-palabras",
       "requiresAuth": true,
       "links": [
-        "/es-en/app/learn/stories",
-        "/es-en/app/learn/stories/miedo",
-        "/es-en/app/learn/stories/ra-nn"
+        "/es-en/app/learn/stories"
       ],
       "uiElements": [
         "Title 'En busca de las palabras'",
-        "Chapter list (4 chapters)",
-        "'0/7 Soundbites', '0/9 Games' (Soundbites panel collapsed by default)",
-        "<audio src='/media/en-busca-de-las-palabras.mp3'>"
+        "Hero: title with ✓ badge, author + 'Downloaded', duration + chapter count, 'N Soundbites' pill",
+        "Blurb, description, tags, 'Credits and resources' toggle",
+        "Compact top bar appears on scroll (back, title, options)",
+        "'Vocab review (N)' pill and star points",
+        "Chapter list (status check, CHAPTER n, title, activity icon)",
+        "'Give feedback on this story'",
+        "'My story progress': Relisten, Reset, 'Complete %', 'Listened', Vocabulary (To review / Learned), Soundbites & Games cards"
       ]
     },
     {
@@ -319,15 +321,17 @@
       "pageState": "story:en-busca-de-las-palabras:soundbites",
       "requiresAuth": true,
       "links": [
-        "/es-en/app/learn/stories",
-        "/es-en/app/learn/stories/miedo",
-        "/es-en/app/learn/stories/ra-nn"
+        "/es-en/app/learn/stories"
       ],
       "uiElements": [
         "Title 'En busca de las palabras'",
-        "Soundbites panel EXPANDED by default",
-        "Soundbite list: 'Érase una vez una erre', 'Por ahí está la casa', 'Teorías del tiempo', 'El esquema de la ciudad', 'Congelando el tiempo', 'Conversando con la sobrina', 'Como en los libros'",
-        "Games list: 'Abrapalabra', 'Word Jive', 'Amigos'"
+        "Hero: title with ✓ badge, author + 'Downloaded', duration + chapter count, 'N Soundbites' pill",
+        "Blurb, description, tags, 'Credits and resources' toggle",
+        "Compact top bar appears on scroll (back, title, options)",
+        "'Vocab review (N)' pill and star points",
+        "Chapter list (status check, CHAPTER n, title, activity icon)",
+        "'Give feedback on this story'",
+        "'My story progress': Relisten, Reset, 'Complete %', 'Listened', Vocabulary (To review / Learned), Soundbites & Games cards"
       ]
     },
     {
@@ -336,15 +340,17 @@
       "pageState": "story:miedo",
       "requiresAuth": true,
       "links": [
-        "/es-en/app/learn/stories",
-        "/es-en/app/learn/stories/ra-nn",
-        "/es-en/app/learn/stories/ra-perro-raro"
+        "/es-en/app/learn/stories"
       ],
       "uiElements": [
         "Title 'Miedo'",
-        "Chapter list (4 chapters)",
-        "'0/7 Soundbites', '0/9 Games'",
-        "<audio src='/media/miedo.mp3'>"
+        "Hero: title with ✓ badge, author + 'Downloaded', duration + chapter count, 'N Soundbites' pill",
+        "Blurb, description, tags, 'Credits and resources' toggle",
+        "Compact top bar appears on scroll (back, title, options)",
+        "'Vocab review (N)' pill and star points",
+        "Chapter list (status check, CHAPTER n, title, activity icon)",
+        "'Give feedback on this story'",
+        "'My story progress': Relisten, Reset, 'Complete %', 'Listened', Vocabulary (To review / Learned), Soundbites & Games cards"
       ]
     },
     {
@@ -353,17 +359,17 @@
       "pageState": "story:ra-nn",
       "requiresAuth": true,
       "links": [
-        "/es-en/app/learn/stories",
-        "/es-en/app/learn/collections/ciudad",
-        "/es-en/app/learn/stories/ra-perro-raro",
-        "/es-en/app/learn/stories/el-superheroe"
+        "/es-en/app/learn/stories"
       ],
       "uiElements": [
         "Title 'N.N.'",
-        "Chapter list (4 chapters)",
-        "'0/7 Soundbites', '0/9 Games'",
-        "'Collection' section linking to /collections/ciudad",
-        "<audio src='/media/ra-nn.mp3'>"
+        "Hero: title with ✓ badge, author + 'Downloaded', duration + chapter count, 'N Soundbites' pill",
+        "Blurb, description, tags, 'Credits and resources' toggle",
+        "Compact top bar appears on scroll (back, title, options)",
+        "'Vocab review (N)' pill and star points",
+        "Chapter list (status check, CHAPTER n, title, activity icon)",
+        "'Give feedback on this story'",
+        "'My story progress': Relisten, Reset, 'Complete %', 'Listened', Vocabulary (To review / Learned), Soundbites & Games cards"
       ]
     },
     {
@@ -372,17 +378,17 @@
       "pageState": "story:ra-perro-raro",
       "requiresAuth": true,
       "links": [
-        "/es-en/app/learn/stories",
-        "/es-en/app/learn/collections/ciudad",
-        "/es-en/app/learn/stories/el-superheroe",
-        "/es-en/app/learn/stories/ra-no-nos-compete"
+        "/es-en/app/learn/stories"
       ],
       "uiElements": [
         "Title 'Este perro está raro'",
-        "Chapter list (4 chapters)",
-        "'0/7 Soundbites', '0/9 Games'",
-        "'Collection' section linking to /collections/ciudad",
-        "<audio src='/media/ra-perro-raro.mp3'>"
+        "Hero: title with ✓ badge, author + 'Downloaded', duration + chapter count, 'N Soundbites' pill",
+        "Blurb, description, tags, 'Credits and resources' toggle",
+        "Compact top bar appears on scroll (back, title, options)",
+        "'Vocab review (N)' pill and star points",
+        "Chapter list (status check, CHAPTER n, title, activity icon)",
+        "'Give feedback on this story'",
+        "'My story progress': Relisten, Reset, 'Complete %', 'Listened', Vocabulary (To review / Learned), Soundbites & Games cards"
       ]
     },
     {
@@ -391,15 +397,17 @@
       "pageState": "story:el-superheroe",
       "requiresAuth": true,
       "links": [
-        "/es-en/app/learn/stories",
-        "/es-en/app/learn/stories/ra-no-nos-compete",
-        "/es-en/app/learn/stories/perdido-en-san-jose"
+        "/es-en/app/learn/stories"
       ],
       "uiElements": [
         "Title 'El superhéroe'",
-        "Chapter list (4 chapters)",
-        "'0/7 Soundbites', '0/9 Games'",
-        "<audio src='/media/el-superheroe.mp3'>"
+        "Hero: title with ✓ badge, author + 'Downloaded', duration + chapter count, 'N Soundbites' pill",
+        "Blurb, description, tags, 'Credits and resources' toggle",
+        "Compact top bar appears on scroll (back, title, options)",
+        "'Vocab review (N)' pill and star points",
+        "Chapter list (status check, CHAPTER n, title, activity icon)",
+        "'Give feedback on this story'",
+        "'My story progress': Relisten, Reset, 'Complete %', 'Listened', Vocabulary (To review / Learned), Soundbites & Games cards"
       ]
     },
     {
@@ -408,17 +416,17 @@
       "pageState": "story:ra-no-nos-compete",
       "requiresAuth": true,
       "links": [
-        "/es-en/app/learn/stories",
-        "/es-en/app/learn/collections/ciudad",
-        "/es-en/app/learn/stories/perdido-en-san-jose",
-        "/es-en/app/learn/stories/boom-colapso"
+        "/es-en/app/learn/stories"
       ],
       "uiElements": [
         "Title 'No nos compete'",
-        "Chapter list (4 chapters, all Done)",
-        "'0/7 Soundbites', '0/9 Games'",
-        "'Collection' section linking to /collections/ciudad",
-        "<audio src='/media/ra-no-nos-compete.mp3'>"
+        "Hero: title with ✓ badge, author + 'Downloaded', duration + chapter count, 'N Soundbites' pill",
+        "Blurb, description, tags, 'Credits and resources' toggle",
+        "Compact top bar appears on scroll (back, title, options)",
+        "'Vocab review (N)' pill and star points",
+        "Chapter list (status check, CHAPTER n, title, activity icon)",
+        "'Give feedback on this story'",
+        "'My story progress': Relisten, Reset, 'Complete %', 'Listened', Vocabulary (To review / Learned), Soundbites & Games cards"
       ]
     }
   ],

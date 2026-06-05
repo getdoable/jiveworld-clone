@@ -2,9 +2,44 @@ import { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import PageMarker from '../components/PageMarker.jsx';
 import StoryCard from '../components/StoryCard.jsx';
+import StoryFilterBar from '../components/StoryFilterBar.jsx';
 import { STORIES } from '../data/stories.js';
 
 const BASE = '/es-en/app/learn';
+
+// Filter-bar option lists, derived from the data.
+const COUNTRIES = [...new Set(STORIES.map((s) => s.country))].sort();
+const COUNTRY_SET = new Set(COUNTRIES);
+const TOPICS = [...new Set(STORIES.flatMap((s) => s.tags))]
+  .filter((t) => !COUNTRY_SET.has(t))
+  .sort();
+
+const EMPTY_FILTERS = { country: '', topic: '', soundbites: '', search: '', sort: null };
+
+// Applies the secondary filter bar (country/topic/soundbites/search) and sort.
+function applyBarFilters(list, f) {
+  let out = list;
+  if (f.country) out = out.filter((s) => s.country === f.country);
+  if (f.topic) out = out.filter((s) => s.tags.includes(f.topic));
+  if (f.soundbites === 'unplayed')
+    out = out.filter((s) => s.soundbitesDone < s.chapters.length);
+  if (f.soundbites === 'completed')
+    out = out.filter((s) => s.soundbitesDone >= s.chapters.length);
+  if (f.search.trim()) {
+    const q = f.search.trim().toLowerCase();
+    out = out.filter((s) =>
+      [s.title, s.blurb, s.description, s.country, ...s.tags]
+        .join(' ')
+        .toLowerCase()
+        .includes(q)
+    );
+  }
+  if (f.sort) {
+    const dir = f.sort === 'asc' ? 1 : -1;
+    out = [...out].sort((a, b) => (durationMinutes(a) - durationMinutes(b)) * dir);
+  }
+  return out;
+}
 
 // Status filters shown in the heading dropdown. Each is a real link to a
 // distinct URL so the crawler captures every filtered state.
@@ -79,7 +114,10 @@ export default function Stories() {
   const { activeKey, label, stories } = applyFilters(location.search);
 
   const [menuOpen, setMenuOpen] = useState(false);
+  const [filters, setFilters] = useState(EMPTY_FILTERS);
   const menuRef = useRef(null);
+
+  const filtered = applyBarFilters(stories, filters);
 
   // Close the dropdown on outside click or Escape.
   useEffect(() => {
@@ -187,8 +225,16 @@ export default function Stories() {
           </a>
         )}
 
-        <span className="ml-auto text-sm text-gray-400 dark:text-gray-400">{stories.length} stories</span>
       </div>
+
+      {/* Functional filter bar: country / topic / soundbites / search + count + sort */}
+      <StoryFilterBar
+        countries={COUNTRIES}
+        topics={TOPICS}
+        filters={filters}
+        setFilters={setFilters}
+        count={filtered.length}
+      />
 
       <div className="mt-2 border-b border-gray-100 dark:border-gray-800 pb-2">
         <a href="#" className="inline-flex items-center gap-2 py-3 text-jw-blue hover:underline">
@@ -197,11 +243,11 @@ export default function Stories() {
       </div>
 
       <div className="mt-2">
-        {stories.map((s) => (
+        {filtered.map((s) => (
           <StoryCard key={s.slug} story={s} layout="row" />
         ))}
-        {stories.length === 0 && (
-          <p className="py-10 text-gray-500 dark:text-gray-400">No stories match this filter.</p>
+        {filtered.length === 0 && (
+          <p className="py-10 text-gray-500 dark:text-gray-400">No stories match these filters.</p>
         )}
       </div>
     </div>
