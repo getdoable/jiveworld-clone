@@ -92,13 +92,18 @@ rendered client-side. Each page also injects an HTML comment at the top, e.g.
 /es-en/app/learn/stories/ra-no-nos-compete
 ```
 
-### Filter buttons (Stories page)
+### Status dropdown (Stories page)
 
-The filter bar buttons ("All in progress", "Completed stories", "Shorts",
-"Find Soundbites I've done", "remove filters") are real `<a href>` links **and**
-update the URL query string on click via `window.history.pushState`, so the
-crawler sees each filtered state as a distinct URL. After pushing state they
-dispatch a `popstate` event so React re-renders against the new URL.
+The heading on the Stories page is a status dropdown (opened by the chevron next
+to the title). Its options — "All stories", "Unplayed", "Study later",
+"In progress", "Complete" — are real `<a href>` links **and** update the URL
+query string on click via `window.history.pushState`, so the crawler sees each
+filtered state as a distinct URL. After pushing state they dispatch a `popstate`
+event so React re-renders against the new URL. A "Show all" button (shown when a
+filter is active) links back to `/es-en/app/learn/stories`.
+
+The legacy `filter_type=topics&filter_value=Shorts` and `filter_type=sb&…` URLs
+still resolve (handled in `applyFilters`) but are no longer linked from the page.
 
 ---
 

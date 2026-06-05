@@ -4,7 +4,10 @@
   "generatedNote": "Frontend is a React SPA served by Vite on http://localhost:5173. Every client-side route returns HTTP 200 with index.html (history-API fallback); the route's real state is rendered client-side and identified by an HTML comment '<!-- PAGE STATE: ... -->' injected at the top of the page. Backend (Express) runs on http://localhost:3001 and is proxied under /api and /media.",
   "auth": {
     "loginEndpoint": "POST /api/login",
-    "credentials": { "username": "testuser@jiveworld.com", "password": "password123" },
+    "credentials": {
+      "username": "testuser@jiveworld.com",
+      "password": "password123"
+    },
     "tokenStorage": "localStorage key 'jw_token' (fake JWT returned by backend)",
     "guard": "All /es-en/app/learn/* routes redirect to /login when 'jw_token' is absent."
   },
@@ -16,7 +19,9 @@
       "status": 200,
       "pageState": "login",
       "requiresAuth": false,
-      "links": ["/es-en/app/learn/home"],
+      "links": [
+        "/es-en/app/learn/home"
+      ],
       "uiElements": [
         "Jiveworld logo",
         "Email input (#username)",
@@ -68,8 +73,8 @@
         "/es-en/app/learn/progress",
         "/es-en/app/learn/stories?primary=inProgress",
         "/es-en/app/learn/stories?primary=completed",
-        "/es-en/app/learn/stories?filter_type=topics&filter_value=Shorts",
-        "/es-en/app/learn/stories?filter_type=sb&filter_value=Completed+stories+with+unplayed+Soundbites",
+        "/es-en/app/learn/stories?primary=studyLater",
+        "/es-en/app/learn/stories?primary=unplayed",
         "/es-en/app/learn/stories/perdido-en-san-jose",
         "/es-en/app/learn/stories/boom-colapso",
         "/es-en/app/learn/stories/luna-llena",
@@ -82,8 +87,8 @@
         "/es-en/app/learn/stories/ra-no-nos-compete"
       ],
       "uiElements": [
-        "Heading 'All stories'",
-        "Filter bar: 'All in progress', 'Completed stories', 'Shorts', \"Find Soundbites I've done\", 'remove filters'",
+        "Heading 'All stories' with status dropdown (chevron)",
+        "Status dropdown: 'All stories', 'Unplayed', 'Study later', 'In progress', 'Complete'",
         "Story count '10 stories'",
         "'My podcast feed' link",
         "Story rows with title, duration, tags, progress label"
@@ -103,7 +108,8 @@
       ],
       "uiElements": [
         "Heading 'In progress'",
-        "Active filter chip 'All in progress'",
+        "Active status 'In progress' in dropdown",
+        "'Show all' button",
         "Story count '4 stories'"
       ]
     },
@@ -394,7 +400,10 @@
     {
       "url": "/api/login",
       "method": "POST",
-      "validRequest": { "username": "testuser@jiveworld.com", "password": "password123" },
+      "validRequest": {
+        "username": "testuser@jiveworld.com",
+        "password": "password123"
+      },
       "successStatus": 200,
       "successBody": "{ token: <fake JWT>, user: { name: 'Test User', email: '...' } }",
       "failureStatus": 401
