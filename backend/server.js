@@ -10,6 +10,7 @@
  * surface is stable for crawler regression testing.
  */
 
+const path = require('path');
 const express = require('express');
 const cors = require('cors');
 
@@ -18,6 +19,9 @@ const PORT = process.env.PORT || 3001;
 
 app.use(cors());
 app.use(express.json());
+
+// Path to the built frontend (produced by `npm run build` in ../frontend).
+const FRONTEND_DIST = path.join(__dirname, '..', 'frontend', 'dist');
 
 // --- In-memory account state ----------------------------------------------
 // Mutable, resets to these defaults on every server restart. Keeping it in
@@ -242,6 +246,19 @@ app.get(/^\/media\/.*\.mp3$/, (req, res) => {
 });
 
 app.get('/api/health', (_req, res) => res.status(200).json({ ok: true }));
+
+// --- Static frontend (production) ------------------------------------------
+// Serve the built SPA and fall back to index.html for client-side routes, so a
+// single Render service hosts both the API and the frontend on one origin (the
+// app's relative /api and /media calls then work without any proxy or CORS).
+// Defined AFTER the API/media routes so those always take precedence.
+app.use(express.static(FRONTEND_DIST));
+
+app.get('*', (req, res, next) => {
+  // Let unmatched API/media paths fall through to a normal 404.
+  if (req.path.startsWith('/api/') || req.path.startsWith('/media/')) return next();
+  return res.sendFile(path.join(FRONTEND_DIST, 'index.html'));
+});
 
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console

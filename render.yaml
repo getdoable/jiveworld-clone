@@ -1,0 +1,16 @@
+# Render Blueprint — single free web service that builds the Vite frontend and
+# serves it (plus the API + placeholder media) from the Express backend.
+# Docs: https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: jiveworld-clone
+    runtime: node
+    plan: free
+    # Build the frontend, then install the backend's runtime deps.
+    buildCommand: "cd frontend && npm install && npm run build && cd ../backend && npm install"
+    # Express serves frontend/dist + the API on the port Render injects.
+    startCommand: "node backend/server.js"
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+    healthCheckPath: /api/health
