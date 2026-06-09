@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 // "Enter your code" popup. For now, applying any non-empty code succeeds and
 // shows a confirmation message (no backend coupon validation yet).
@@ -26,7 +27,7 @@ export default function RedeemCodeModal({ open, onClose }) {
     setApplied(trimmed);
   }
 
-  return (
+  return createPortal(
     <div
       className="animate-backdrop-fade fixed inset-0 z-50 flex items-center justify-center bg-black/30 p-4"
       onClick={onClose}
@@ -81,6 +82,7 @@ export default function RedeemCodeModal({ open, onClose }) {
           </p>
         )}
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }

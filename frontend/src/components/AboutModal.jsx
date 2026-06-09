@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 
 // "jiveWorld" rainbow wordmark used at the top of the about popup.
 function Wordmark() {
@@ -42,7 +43,7 @@ export default function AboutModal({ open, onClose }) {
 
   if (!open) return null;
 
-  return (
+  return createPortal(
     <div
       className="animate-backdrop-fade fixed inset-0 z-50 flex items-center justify-center bg-black/30 p-4"
       onClick={onClose}
@@ -96,6 +97,7 @@ export default function AboutModal({ open, onClose }) {
           Close
         </button>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }

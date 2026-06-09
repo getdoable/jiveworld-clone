@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { getSettings, updateSettings } from '../lib/settings.js';
 
 // Green pill toggle switch.
@@ -265,7 +266,7 @@ export default function SettingsModal({ open, onClose }) {
     setSettings(updateSettings(partial));
   }
 
-  return (
+  return createPortal(
     <div
       className="animate-backdrop-fade fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/30 p-4 sm:py-10"
       onClick={onClose}
@@ -321,6 +322,7 @@ export default function SettingsModal({ open, onClose }) {
           )}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
