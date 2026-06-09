@@ -18,6 +18,9 @@ export default function App() {
       {/* Story detail is a full-screen takeover (no sidebar); it guards auth itself. */}
       <Route path="/es-en/app/learn/stories/:slug" element={<StoryDetail />} />
 
+      {/* Account is a full-screen page (no sidebar); it guards auth itself. */}
+      <Route path="/es-en/app/learn/account" element={<Account />} />
+
       {/* All other /es-en/app/learn/* routes are guarded inside AppLayout. */}
       <Route path="/es-en/app/learn" element={<AppLayout />}>
         <Route index element={<Navigate to="home" replace />} />
@@ -26,7 +29,6 @@ export default function App() {
         <Route path="collections" element={<Collections />} />
         <Route path="collections/:slug" element={<CollectionDetail />} />
         <Route path="progress" element={<Progress />} />
-        <Route path="account" element={<Account />} />
         <Route path="support" element={<Support />} />
       </Route>
 

@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import PageMarker from '../components/PageMarker.jsx';
-import { getUser, logout, updateStoredUser } from '../lib/auth.js';
+import Logo from '../components/Logo.jsx';
+import { getUser, isAuthenticated, logout, updateStoredUser } from '../lib/auth.js';
 import {
   fetchAccount,
   updateAccount,
@@ -10,6 +11,30 @@ import {
   cancelSubscription,
   resubscribe,
 } from '../lib/api.js';
+
+const BASE = '/es-en/app/learn';
+
+// Full-screen account layout: a top-left back-arrow + logo (navigates straight
+// to the homepage — no About popup) above a centered content column.
+function AccountShell({ children }) {
+  const navigate = useNavigate();
+  return (
+    <div className="min-h-screen bg-white dark:bg-gray-900">
+      <div className="mx-auto max-w-2xl px-10 pb-10 pt-8">
+        <button
+          type="button"
+          onClick={() => navigate(`${BASE}/home`)}
+          aria-label="Back to home"
+          className="mb-8 flex items-center gap-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+        >
+          <span className="text-3xl leading-none" aria-hidden="true">←</span>
+          <Logo showWord={false} />
+        </button>
+        {children}
+      </div>
+    </div>
+  );
+}
 
 function EditButton({ onClick, label = 'Edit' }) {
   return (
@@ -148,23 +173,25 @@ export default function Account() {
     }
   }
 
+  if (!isAuthenticated()) return <Navigate to="/login" replace />;
+
   if (loadError) {
     return (
-      <div className="mx-auto max-w-2xl px-10 py-10">
+      <AccountShell>
         <PageMarker state="account" />
         <h1 className="text-4xl font-extrabold text-jw-ink dark:text-gray-100">My account</h1>
         <p className="mt-6 text-red-500">Couldn’t load your account: {loadError}</p>
-      </div>
+      </AccountShell>
     );
   }
 
   if (!account) {
     return (
-      <div className="mx-auto max-w-2xl px-10 py-10">
+      <AccountShell>
         <PageMarker state="account" />
         <h1 className="text-4xl font-extrabold text-jw-ink dark:text-gray-100">My account</h1>
         <p className="mt-6 text-gray-500 dark:text-gray-400">Loading…</p>
-      </div>
+      </AccountShell>
     );
   }
 
@@ -173,7 +200,7 @@ export default function Account() {
   const card = m.payment;
 
   return (
-    <div className="mx-auto max-w-2xl px-10 py-10">
+    <AccountShell>
       <PageMarker state="account" />
 
       {/* Title + sign out */}
@@ -339,7 +366,7 @@ export default function Account() {
           onConfirm={handleCancelSub}
         />
       )}
-    </div>
+    </AccountShell>
   );
 }
 
