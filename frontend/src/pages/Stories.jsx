@@ -45,10 +45,10 @@ function applyBarFilters(list, f) {
 // distinct URL so the crawler captures every filtered state.
 const STATUS_OPTIONS = [
   { key: 'all', label: 'All stories', href: `${BASE}/stories` },
-  { key: 'unplayed', label: 'Unplayed', href: `${BASE}/stories?primary=unplayed` },
-  { key: 'studyLater', label: 'Study later', href: `${BASE}/stories?primary=studyLater` },
-  { key: 'inProgress', label: 'In progress', href: `${BASE}/stories?primary=inProgress` },
-  { key: 'completed', label: 'Complete', href: `${BASE}/stories?primary=completed` },
+  { key: 'unplayed', label: 'Unplayed', href: `${BASE}/stories/unplayed` },
+  { key: 'studyLater', label: 'Study later', href: `${BASE}/stories/study-later` },
+  { key: 'inProgress', label: 'In progress', href: `${BASE}/stories/in-progress` },
+  { key: 'completed', label: 'Complete', href: `${BASE}/stories/completed` },
 ];
 
 // Small status glyph used both in the heading and in the dropdown rows.
@@ -80,12 +80,27 @@ function durationMinutes(s) {
   return Number.isNaN(m) ? 99 : m;
 }
 
-// Resolve the active filter + filtered story list from the URL query string.
-function applyFilters(search) {
+// Resolve the active filter + filtered story list from the URL. The status
+// filter is read from the pathname (e.g. /stories/in-progress); the old
+// ?primary=* query param is kept as a fallback for existing inbound links.
+function applyFilters(pathname, search) {
   const params = new URLSearchParams(search);
   const primary = params.get('primary');
   const filterType = params.get('filter_type');
   const filterValue = params.get('filter_value');
+
+  // Path-based status filters take precedence.
+  const segment = pathname.startsWith(`${BASE}/stories/`)
+    ? pathname.slice(`${BASE}/stories/`.length)
+    : '';
+  if (segment === 'unplayed')
+    return { activeKey: 'unplayed', label: 'Unplayed', stories: STORIES.filter((s) => s.primary === 'unplayed') };
+  if (segment === 'in-progress')
+    return { activeKey: 'inProgress', label: 'In progress', stories: STORIES.filter((s) => s.primary === 'inProgress') };
+  if (segment === 'completed')
+    return { activeKey: 'completed', label: 'Complete', stories: STORIES.filter((s) => s.primary === 'completed') };
+  if (segment === 'study-later')
+    return { activeKey: 'studyLater', label: 'Study later', stories: STORIES.filter((s) => s.primary === 'studyLater') };
 
   if (primary === 'unplayed')
     return { activeKey: 'unplayed', label: 'Unplayed', stories: STORIES.filter((s) => s.primary === 'unplayed') };
@@ -111,7 +126,7 @@ function applyFilters(search) {
 
 export default function Stories() {
   const location = useLocation();
-  const { activeKey, label, stories } = applyFilters(location.search);
+  const { activeKey, label, stories } = applyFilters(location.pathname, location.search);
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [filters, setFilters] = useState(EMPTY_FILTERS);
@@ -146,7 +161,14 @@ export default function Stories() {
     window.dispatchEvent(new PopStateEvent('popstate'));
   }
 
-  const stateLabel = location.search ? `stories${location.search}` : 'stories';
+  const pathSuffix = location.pathname.startsWith(`${BASE}/stories/`)
+    ? `/${location.pathname.slice(`${BASE}/stories/`.length)}`
+    : '';
+  const stateLabel = pathSuffix
+    ? `stories${pathSuffix}`
+    : location.search
+    ? `stories${location.search}`
+    : 'stories';
 
   return (
     <div className="mx-auto max-w-5xl px-10 py-10">
